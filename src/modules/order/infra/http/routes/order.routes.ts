@@ -1,10 +1,12 @@
 import { Router } from 'express';
 
-
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/EnsureAuthentication';
 import { OrdersController, upload } from '../controllers/OrdersController';
 
 const ordersRouter = Router();
 const ordersController = new OrdersController();
+
+
 
 // Rota para criação de uma nova order
 ordersRouter.post('/', upload.single('imagemPedido'), ordersController.create);

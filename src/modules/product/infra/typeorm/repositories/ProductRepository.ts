@@ -2,12 +2,13 @@ import { getRepository, Repository } from 'typeorm';
 import IProductRepository from '@modules/product/repositories/IProductRepository';
 import ICreateProductDTO from '@modules/product/dtos/ICreateProductDTO';
 import Product from '@modules/product/infra/typeorm/entities/Product';
+import dataSource from '@shared/infra/typeorm/data-source';
 
 class ProductRepository implements IProductRepository {
   private ormRepository: Repository<Product>;
 
   constructor() {
-    this.ormRepository = getRepository(Product);
+    this.ormRepository = dataSource.getRepository(Product);
   }
 
   public async create({ nome, codigo, custo }: ICreateProductDTO): Promise<Product> {

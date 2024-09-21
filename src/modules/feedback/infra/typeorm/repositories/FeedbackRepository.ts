@@ -4,12 +4,13 @@ import { getRepository, Repository } from 'typeorm';
 import IFeedbackRepository from '@modules/feedback/repositories/IFeedbackRepository';
 import ICreateFeedbackDTO from '@modules/feedback/dtos/ICreateFeedbackDTO';
 import Feedback from '@modules/feedback/infra/typeorm/entities/Feedback';
+import dataSource from '@shared/infra/typeorm/data-source';
 
 class FeedbackRepository implements IFeedbackRepository {
   private ormRepository: Repository<Feedback>;
 
   constructor() {
-    this.ormRepository = getRepository(Feedback);
+    this.ormRepository = dataSource.getRepository(Feedback);
   }
 
   public async create({ pergunta, resposta }: ICreateFeedbackDTO): Promise<Feedback> {

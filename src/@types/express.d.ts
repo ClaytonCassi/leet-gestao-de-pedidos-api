@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
 declare namespace Express {
+  export interface User {
+    id: string;
+    name: string;
+  }
+
   export interface Request {
-    user: {
-      id: string;
-    };
+    user: User;
   }
 }

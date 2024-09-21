@@ -83,7 +83,9 @@ class CalculatePriceService {
       const discountAmount = (totalPrice * discount) / 100;
       totalPrice -= discountAmount;
 
-      let result = `${quantidade} unidades ${productName} + ${additionalNames} : R$ ${(totalPrice / quantidade).toFixed(2)} cada unidade - Total: R$ ${totalPrice.toFixed(2)}`;
+      let result = `${quantidade} unidades ${productName} + ${additionalNames} : R$ ${(totalPrice / quantidade).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} cada unidade - Total: R$ ${totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+     
       
       if (discount > 0) {
         result += ` (com desconto de ${discount}% aplicado)`;

@@ -54,6 +54,8 @@ class OrdersController {
       nomeVendedor,
     } = request.body;
 
+    const userName = (request.headers['x-user-name'] as string) || '';
+
     let imagemPedidoUrl: string | null = null;
 
     if (request.file) {
@@ -109,7 +111,7 @@ class OrdersController {
       nomeVendedor,
     };
 
-    const order = await createOrder.execute(orderData);
+    const order = await createOrder.execute(orderData, userName);
 
     return response.status(200).json(order);
   }
@@ -173,9 +175,11 @@ class OrdersController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const deleteOrderService = container.resolve(DeleteOrderService);
+
+    const userName = (request.headers['x-user-name'] as string) || '';
   
     try {
-      await deleteOrderService.execute(id);
+      await deleteOrderService.execute(id, userName);
       return response.status(204).send();
     } catch (error) {
       return response.status(404).json({ message: 'Pedido não encontrado.' });

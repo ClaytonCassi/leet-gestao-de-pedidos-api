@@ -1,3 +1,5 @@
+// src/shared/infra/http/middlewares/ensureAuthentication.ts
+
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
@@ -5,17 +7,19 @@ import authConfig from '@config/auth';
 
 import AppError from '@shared/errors/AppError';
 
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+
 interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
 }
 
-export default function ensureAuthentication(
+export default async function ensureAuthentication(
   request: Request,
   response: Response,
   next: NextFunction,
-): void {
+): Promise<void> {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -29,8 +33,16 @@ export default function ensureAuthentication(
 
     const { sub } = decoded as ITokenPayload;
 
+    const usersRepository = new UsersRepository();
+    const user = await usersRepository.findById(sub);
+
+    if (!user) {
+      throw new AppError('User not found.', 401);
+    }
+
     request.user = {
       id: sub,
+      name: user.name,
     };
 
     return next();

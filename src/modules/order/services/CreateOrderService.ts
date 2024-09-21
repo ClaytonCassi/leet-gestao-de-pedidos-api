@@ -10,6 +10,7 @@ import fs from 'fs';
 import path from 'path';
 import uploadConfig from '@config/storage';
 import { format } from 'date-fns';
+import CreateLogService from '@modules/log/services/CreateLogService';
 
 @injectable()
 class CreateOrderService {
@@ -19,6 +20,9 @@ class CreateOrderService {
 
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
+
+    @inject('CreateLogService')
+    private createLogService: CreateLogService,
   ) {}
 
   public async execute({
@@ -39,8 +43,8 @@ class CreateOrderService {
     dataEntrega,
     observacao,
     formaPagamento,
-    nomeVendedor, // Novo campo
-  }: ICreateOrderDTO): Promise<Order> {
+    nomeVendedor,
+  }: ICreateOrderDTO, user_name: string): Promise<Order> {
     // Obter o último pedido
     const lastOrder = await this.ordersRepository.findLastOrder();
     let numeroPedido = '000001'; // Número inicial padrão
@@ -91,12 +95,21 @@ class CreateOrderService {
     order.dataEntrega = dataEntrega;
     order.observacao = observacao;
     order.formaPagamento = formaPagamento;
-    order.numeroPedido = numeroPedido; // Novo campo
-    order.nomeVendedor = nomeVendedor || ''; // Novo campo
+    order.numeroPedido = numeroPedido; 
+    order.nomeVendedor = nomeVendedor || ''; 
 
     await this.ordersRepository.save(order);
 
+
+    await this.createLogService.execute({
+      module: 'Order',
+      event: 'Order Created',
+      data: { order },
+      user_name, 
+    });
+
     return order;
+
   }
 
   public async uploadImage(file: Express.Multer.File): Promise<string> {
