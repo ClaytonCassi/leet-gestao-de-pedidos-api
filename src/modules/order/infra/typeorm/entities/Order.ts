@@ -58,16 +58,24 @@ class Order {
   @Column('date')
   dataEntrega: Date;
 
+  @Column({
+    type: 'varchar',
+    length: 20,
+    nullable: true,
+    default: 'não confirmado', 
+  })
+  pagamentoVerificado?: 'não confirmado' | 'confirmado 50%' | 'confirmado 100%' | null;
+
   @Column({ type: 'text', nullable: true })
   observacao?: string;
 
   @Column({ type: 'varchar', nullable: true })
   formaPagamento?: string;
 
-  @Column({ type: 'varchar', nullable: true }) // Adicionar campo para número do pedido
+  @Column({ type: 'varchar', nullable: true })
   numeroPedido: string;
 
-  @Column({ type: 'varchar', nullable: true }) // Adicionar campo para nome do vendedor
+  @Column({ type: 'varchar', nullable: true })
   nomeVendedor: string;
 
   @CreateDateColumn()

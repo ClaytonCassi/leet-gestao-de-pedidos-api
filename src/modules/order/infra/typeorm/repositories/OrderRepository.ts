@@ -50,6 +50,16 @@ class OrderRepository implements IOrderRepository {
     return order || undefined;
   }
 
+  public async findByNumeroPedido(numeroPedido: string): Promise<Order | undefined> {
+    // Padroniza o número para 6 caracteres com zeros à esquerda
+    const numeroPadronizado = numeroPedido.padStart(6, '0');
+    
+    const order = await this.ormRepository.findOne({
+      where: { numeroPedido: numeroPadronizado },
+    });
+    return order || undefined;
+  }
+
 
   public async update(orderId: string, data: Partial<ICreateOrderDTO>): Promise<Order> {
     const orderRepository = getRepository(Order);

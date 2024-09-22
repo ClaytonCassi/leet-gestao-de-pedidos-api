@@ -7,6 +7,8 @@ import UpdateOrderService from '@modules/order/services/UpdateOrderService';
 import DeleteOrderService from '@modules/order/services/DeleteOrderService';
 import ShowOrderService from '@modules/order/services/ShowOrderService';
 import ICreateOrderDTO, { IOrderProductDTO } from '@modules/order/dtos/ICreateOrderDTO';
+import ShowOrderByNumeroService from '@modules/order/services/ShowOrderByNumeroService';
+import UpdatePagamentoVerificadoService from '@modules/order/services/UpdatePagamentoVerificadoService';
 
 // Configuração do Multer para armazenar arquivos em memória
 const upload = multer({ storage: multer.memoryStorage() });
@@ -200,6 +202,22 @@ class OrdersController {
       return response.status(500).json({ message: 'Erro desconhecido' });
     }
   }
+
+  public async showByNumeroPedido(request: Request, response: Response): Promise<Response> {
+    const { numeroPedido } = request.params;
+    const showOrderByNumero = container.resolve(ShowOrderByNumeroService);
+
+    try {
+      // Usa o serviço recém-criado para buscar pelo numeroPedido
+      const order = await showOrderByNumero.execute(numeroPedido);
+      return response.json(order);
+    } catch (error) {
+      if (error instanceof Error) {
+        return response.status(404).json({ message: error.message });
+      }
+      return response.status(500).json({ message: 'Erro desconhecido' });
+    }
+  }
   
   public async list(request: Request, response: Response): Promise<Response> {
     const { startDate, endDate } = request.query;
@@ -223,6 +241,24 @@ class OrdersController {
     const orders = await listOrders.execute(start, end);
   
     return response.json(orders);
+  }
+
+  public async updatePagamentoVerificado(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const { status } = request.body; // Recebe o novo status do pagamento
+
+    const updatePagamentoVerificado = container.resolve(UpdatePagamentoVerificadoService);
+
+    try {
+      // Executa o serviço para atualizar o pagamento verificado
+      const order = await updatePagamentoVerificado.execute({ id, status });
+      return response.json(order);
+    } catch (error) {
+      if (error instanceof Error) {
+        return response.status(404).json({ message: error.message });
+      }
+      return response.status(500).json({ message: 'Erro desconhecido' });
+    }
   }
   
 }

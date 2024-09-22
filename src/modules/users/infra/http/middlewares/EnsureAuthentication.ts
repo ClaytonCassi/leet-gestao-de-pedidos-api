@@ -13,6 +13,7 @@ interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
+  name: string;
 }
 
 export default async function ensureAuthentication(

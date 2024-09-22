@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/EnsureAuthentication';
 import { OrdersController, upload } from '../controllers/OrdersController';
 
 const ordersRouter = Router();
@@ -14,5 +13,8 @@ ordersRouter.get('/', ordersController.list);
 ordersRouter.get('/:id', ordersController.show);
 ordersRouter.patch('/:id', upload.single('imagemPedido'), ordersController.update);
 ordersRouter.delete('/:id', ordersController.delete);
+ordersRouter.get('/numero/:numeroPedido', ordersController.showByNumeroPedido);
+ordersRouter.patch('/verificacao-pagamento/:id', ordersController.updatePagamentoVerificado);
+
 
 export default ordersRouter;

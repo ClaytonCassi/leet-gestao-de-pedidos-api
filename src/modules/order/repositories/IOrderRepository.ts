@@ -12,4 +12,5 @@ export default interface IOrderRepository {
   delete(id: string): Promise<void>;
   findAllInDateRange(startDate: Date, endDate: Date): Promise<Order[]>;
   findLastOrder(): Promise<Order | undefined>
+  findByNumeroPedido(numeroPedido: string): Promise<Order | undefined> 
 }
