@@ -3,11 +3,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import authConfig from '@config/auth';
+import authConfig from '../../../../../config/auth';
 
-import AppError from '@shared/errors/AppError';
+import AppError from '../../../../../shared/errors/AppError';
 
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+
+import UsersRepository from '../../../../../modules/users/infra/typeorm/repositories/UsersRepository';
 
 interface ITokenPayload {
   iat: number;

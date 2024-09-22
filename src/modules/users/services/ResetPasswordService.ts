@@ -1,11 +1,11 @@
 import { injectable, inject } from 'tsyringe';
 import { isAfter, addHours } from 'date-fns';
 
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
-import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
+import IUsersRepository from '../../../modules/users/repositories/IUsersRepository';
+import IUserTokensRepository from '../../../modules/users/repositories/IUserTokensRepository';
+import IHashProvider from '../../../modules/users/providers/HashProvider/models/IHashProvider';
 
-import AppError from '@shared/errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 
 interface IRequest {
   password: string;

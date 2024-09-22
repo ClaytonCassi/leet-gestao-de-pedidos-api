@@ -1,10 +1,10 @@
 // ProductPricesRepository.ts
 
-import { getRepository, Repository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
-import IProductPricesRepository from '@modules/product-prices/repositories/IProductPricesRepository';
-import ICreateProductPriceDTO from '@modules/product-prices/dtos/ICreateProductPriceDTO';
+import { Repository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import IProductPricesRepository from '../../../../../modules/product-prices/repositories/IProductPricesRepository';
+import ICreateProductPriceDTO from '../../../../../modules/product-prices/dtos/ICreateProductPriceDTO';
 import ProductPrice from '../entities/ProductPrice';
-import dataSource from '@shared/infra/typeorm/data-source';
+import dataSource from '../../../../../shared/infra/typeorm/data-source';
 
 class ProductPricesRepository implements IProductPricesRepository {
   private ormRepository: Repository<ProductPrice>;

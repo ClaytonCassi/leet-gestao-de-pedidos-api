@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateAdditionalPriceService from '@modules/additional-prices/services/CreateAdditionalPriceService';
-import ListAdditionalPricesService from '@modules/additional-prices/services/ListAdditionalPricesService';
-import UpdateAdditionalPriceService from '@modules/additional-prices/services/UpdateAdditionalPriceService';
-import DeleteAdditionalPriceService from '@modules/additional-prices/services/DeleteAdditionalPriceService';
-import ShowAdditionalPriceService from '@modules/additional-prices/services/ShowAdditionalPriceService';
-import ListByAdditionalService from '@modules/additional-prices/services/ListByAdditionalService';
+import CreateAdditionalPriceService from '../../../../../modules/additional-prices/services/CreateAdditionalPriceService';
+import ListAdditionalPricesService from '../../../../../modules/additional-prices/services/ListAdditionalPricesService';
+import UpdateAdditionalPriceService from '../../../../../modules/additional-prices/services/UpdateAdditionalPriceService';
+import DeleteAdditionalPriceService from '../../../../../modules/additional-prices/services/DeleteAdditionalPriceService';
+import ShowAdditionalPriceService from '../../../../../modules/additional-prices/services/ShowAdditionalPriceService';
+import ListByAdditionalService from '../../../../../modules/additional-prices/services/ListByAdditionalService';
 
 class AdditionalPricesController {
   public async create(request: Request, response: Response): Promise<Response> {

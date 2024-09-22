@@ -1,10 +1,10 @@
-import { getRepository, Repository, Not } from 'typeorm';
-import User from '@modules/users/infra/typeorm/entities/User';
+import { Repository, Not } from 'typeorm';
+import User from '../../../../../modules/users/infra/typeorm/entities/User';
 
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
-import dataSource from '@shared/infra/typeorm/data-source';
+import IUsersRepository from '../../../../../modules/users/repositories/IUsersRepository';
+import ICreateUserDTO from '../../../../../modules/users/dtos/ICreateUserDTO';
+import IFindAllProvidersDTO from '../../../../../modules/users/dtos/IFindAllProvidersDTO';
+import dataSource from '../../../../../shared/infra/typeorm/data-source';
 
 class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;

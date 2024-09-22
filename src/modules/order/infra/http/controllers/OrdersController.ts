@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import multer from 'multer';
-import CreateOrderService from '@modules/order/services/CreateOrderService';
-import ListOrdersService from '@modules/order/services/ListOrdersByDateRangeService';
-import UpdateOrderService from '@modules/order/services/UpdateOrderService';
-import DeleteOrderService from '@modules/order/services/DeleteOrderService';
-import ShowOrderService from '@modules/order/services/ShowOrderService';
-import ICreateOrderDTO, { IOrderProductDTO } from '@modules/order/dtos/ICreateOrderDTO';
-import ShowOrderByNumeroService from '@modules/order/services/ShowOrderByNumeroService';
-import UpdatePagamentoVerificadoService from '@modules/order/services/UpdatePagamentoVerificadoService';
+import CreateOrderService from '../../../../../modules/order/services/CreateOrderService';
+import ListOrdersService from '../../../../../modules/order/services/ListOrdersByDateRangeService';
+import UpdateOrderService from '../../../../../modules/order/services/UpdateOrderService';
+import DeleteOrderService from '../../../../../modules/order/services/DeleteOrderService';
+import ShowOrderService from '../../../../../modules/order/services/ShowOrderService';
+import ICreateOrderDTO, { IOrderProductDTO } from '../../../../../modules/order/dtos/ICreateOrderDTO';
+import ShowOrderByNumeroService from '../../../../../modules/order/services/ShowOrderByNumeroService';
+import UpdatePagamentoVerificadoService from '../../../../../modules/order/services/UpdatePagamentoVerificadoService';
 
 // Configuração do Multer para armazenar arquivos em memória
 const upload = multer({ storage: multer.memoryStorage() });

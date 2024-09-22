@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import IAdditionalPricesRepository from '@modules/additional-prices/repositories/IAdditionalPricesRepository';
+import IAdditionalPricesRepository from '../../../modules/additional-prices/repositories/IAdditionalPricesRepository';
 import AdditionalPrice from '../infra/typeorm/entities/AdditionalPrice';
 
 interface IRequest {

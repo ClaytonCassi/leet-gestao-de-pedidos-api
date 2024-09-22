@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CalculatePriceService from '@modules/price-calculator/services/CalculatePriceService';
+import CalculatePriceService from '../../../../../modules/price-calculator/services/CalculatePriceService';
 
 class CalculatePriceController {
   public async calculate(request: Request, response: Response): Promise<Response> {

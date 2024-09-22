@@ -1,8 +1,7 @@
 // src/modules/product/services/UpdateProductService.ts
-
 import { injectable, inject } from 'tsyringe';
-import IProductRepository from '@modules/product/repositories/IProductRepository';
-import Product from '@modules/product/infra/typeorm/entities/Product';
+import IProductRepository from '../../../modules/product/repositories/IProductRepository';
+import Product from '../../../modules/product/infra/typeorm/entities/Product';
 
 interface IRequest {
   id: string;

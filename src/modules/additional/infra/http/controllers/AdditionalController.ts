@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateAdditionalService from '@modules/additional/services/CreateAdditionalService';
-import ListAdditionalsService from '@modules/additional/services/ListAdditionalService';
-import UpdateAdditionalService from '@modules/additional/services/UpdateAdditionalService';
-import DeleteAdditionalService from '@modules/additional/services/DeleteAdditionalService';
+import CreateAdditionalService from '../../../../../modules/additional/services/CreateAdditionalService';
+import ListAdditionalsService from '../../../../../modules/additional/services/ListAdditionalService';
+import UpdateAdditionalService from '../../../../../modules/additional/services/UpdateAdditionalService';
+import DeleteAdditionalService from '../../../../../modules/additional/services/DeleteAdditionalService';
 
 class AdditionalController {
   public async create(request: Request, response: Response): Promise<Response> {

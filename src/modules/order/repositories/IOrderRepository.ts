@@ -1,5 +1,5 @@
-import Order from '@modules/order/infra/typeorm/entities/Order';
-import ICreateOrderDTO from '@modules/order/dtos/ICreateOrderDTO';
+import Order from '../../../modules/order/infra/typeorm/entities/Order';
+import ICreateOrderDTO from '../../../modules/order/dtos/ICreateOrderDTO';
 import { EntityManager } from 'typeorm';
 
 

@@ -7,7 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import Product from '@modules/product/infra/typeorm/entities/Product';
+import Product from '../../../../../modules/product/infra/typeorm/entities/Product';
 
 @Entity('product_prices')
 class ProductPrice {

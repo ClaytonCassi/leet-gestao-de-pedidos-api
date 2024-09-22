@@ -1,4 +1,4 @@
-import { STORAGE_DRIVER } from '@shared/utils/environment';
+import { STORAGE_DRIVER } from '../shared/utils/environment';
 import path from 'path';
 import multer, { StorageEngine } from 'multer';
 import crypto from 'crypto';

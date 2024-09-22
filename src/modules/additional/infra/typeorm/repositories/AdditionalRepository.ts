@@ -1,9 +1,9 @@
-import { getRepository, Repository } from 'typeorm';
+import {  Repository } from 'typeorm';
 
-import Additional from '@modules/additional/infra/typeorm/entities/Additional';
-import ICreateAdditionalDTO from '@modules/additional/dtos/ICreateAdditionalDTO';
-import IAdditionalRepository from '@modules/additional/repositories/IAdditionalRepository';
-import dataSource from '@shared/infra/typeorm/data-source';
+import Additional from '../../../../../modules/additional/infra/typeorm/entities/Additional';
+import ICreateAdditionalDTO from '../../../../../modules/additional/dtos/ICreateAdditionalDTO';
+import IAdditionalRepository from '../../../../../modules/additional/repositories/IAdditionalRepository';
+import dataSource from '../../../../../shared/infra/typeorm/data-source';
 
 class AdditionalRepository implements IAdditionalRepository {
   private ormRepository: Repository<Additional>;

@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
-import IFeedbackRepository from '@modules/feedback/repositories/IFeedbackRepository';
-import Feedback from '@modules/feedback/infra/typeorm/entities/Feedback';
+import IFeedbackRepository from '../../../modules/feedback/repositories/IFeedbackRepository';
+import Feedback from '../../../modules/feedback/infra/typeorm/entities/Feedback';
 
 interface IRequest {
   id: string;

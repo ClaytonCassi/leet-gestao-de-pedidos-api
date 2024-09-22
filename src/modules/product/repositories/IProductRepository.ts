@@ -1,7 +1,7 @@
 // src/modules/product/repositories/IProductRepository.ts
 
-import Product from '@modules/product/infra/typeorm/entities/Product';
-import ICreateProductDTO from '@modules/product/dtos/ICreateProductDTO';
+import Product from '../../../modules/product/infra/typeorm/entities/Product';
+import ICreateProductDTO from '../../../modules/product/dtos/ICreateProductDTO';
 
 interface IProductRepository {
   create(data: ICreateProductDTO): Promise<Product>;

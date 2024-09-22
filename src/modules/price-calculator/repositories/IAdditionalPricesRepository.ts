@@ -1,4 +1,4 @@
-import AdditionalPrice from "@modules/additional-prices/infra/typeorm/entities/AdditionalPrice";
+import AdditionalPrice from "../../../modules/additional-prices/infra/typeorm/entities/AdditionalPrice";
 
 
 interface IAdditionalPricesRepository {

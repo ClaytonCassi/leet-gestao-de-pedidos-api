@@ -1,7 +1,7 @@
-import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
-import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
-import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
-import AppError from '@shared/errors/AppError';
+import FakeStorageProvider from '../../../shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
+import FakeUsersRepository from '../../../modules/users/repositories/fakes/FakeUsersRepository';
+import UpdateUserAvatarService from '../../../modules/users/services/UpdateUserAvatarService';
+import AppError from '../../../shared/errors/AppError';
 
 let fakeStorageProvider: FakeStorageProvider;
 let fakeUsersRepository: FakeUsersRepository;

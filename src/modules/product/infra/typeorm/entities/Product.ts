@@ -1,4 +1,4 @@
-import ProductPrice from '@modules/product-prices/infra/typeorm/entities/ProductPrice';
+import ProductPrice from '../../../../../modules/product-prices/infra/typeorm/entities/ProductPrice';
 import {
   Entity,
   Column,

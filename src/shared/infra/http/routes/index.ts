@@ -1,16 +1,16 @@
 import { Router } from 'express';
-import usersRouter from '@modules/users/infra/http/routes/users.routes';
-import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
-import passwordRouter from '@modules/users/infra/http/routes/password.routes';
-import profileRouter from '@modules/users/infra/http/routes/profile.routes';
-import orderRouter from '@modules/order/infra/http/routes/order.routes';
-import productRouter from '@modules/product/infra/http/routes/product.routes'; 
-import additionalRouter from '@modules/additional/infra/http/routes/additional.routes'; 
-import feedbackRouter from '@modules/feedback/infra/http/routes/feedback.routes'; 
-import productPricesRouter from '@modules/product-prices/infra/http/routes/productPrices.routes';
-import additionalPricesRouter from '@modules/additional-prices/infra/http/routes/additionalPrices.routes';
-import priceCalculatorRouter from '@modules/price-calculator/infra/http/routes/price-calculator.routes';
-import partageCalculatorRouter from '@modules/portage-calculator/infra/http/routes/partageCalculator.routes';
+import usersRouter from '../../../../modules/users/infra/http/routes/users.routes';
+import sessionsRouter from '../../../../modules/users/infra/http/routes/sessions.routes';
+import passwordRouter from '../../../../modules/users/infra/http/routes/password.routes';
+import profileRouter from '../../../../modules/users/infra/http/routes/profile.routes';
+import orderRouter from '../../../../modules/order/infra/http/routes/order.routes';
+import productRouter from '../../../../modules/product/infra/http/routes/product.routes'; 
+import additionalRouter from '../../../../modules/additional/infra/http/routes/additional.routes'; 
+import feedbackRouter from '../../../../modules/feedback/infra/http/routes/feedback.routes'; 
+import productPricesRouter from '../../../../modules/product-prices/infra/http/routes/productPrices.routes';
+import additionalPricesRouter from '../../../../modules/additional-prices/infra/http/routes/additionalPrices.routes';
+import priceCalculatorRouter from '../../../../modules/price-calculator/infra/http/routes/price-calculator.routes';
+import partageCalculatorRouter from '../../../../modules/portage-calculator/infra/http/routes/partageCalculator.routes';
 
 const routes = Router();
 

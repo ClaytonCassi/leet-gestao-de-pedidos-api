@@ -1,9 +1,9 @@
-import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
-import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import IHashProvider from '../../../modules/users/providers/HashProvider/models/IHashProvider';
+import ICacheProvider from '../../../shared/container/providers/CacheProvider/models/ICacheProvider';
+import IUsersRepository from '../../../modules/users/repositories/IUsersRepository';
 
-import User from '@modules/users/infra/typeorm/entities/User';
-import AppError from '@shared/errors/AppError';
+import User from '../../../modules/users/infra/typeorm/entities/User';
+import AppError from '../../../shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 
 interface IRequest {

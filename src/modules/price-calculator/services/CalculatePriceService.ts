@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
-import IProductPricesRepository from '@modules/price-calculator/repositories/IProductPricesRepository';
-import IAdditionalPricesRepository from '@modules/price-calculator/repositories/IAdditionalPricesRepository';
-import ProductPrice from '@modules/product-prices/infra/typeorm/entities/ProductPrice';
+import IProductPricesRepository from '../../../modules/price-calculator/repositories/IProductPricesRepository';
+import IAdditionalPricesRepository from '../../../modules/price-calculator/repositories/IAdditionalPricesRepository';
+import ProductPrice from '../../../modules/product-prices/infra/typeorm/entities/ProductPrice';
 
 interface IRequestItem {
   quantidade: number;
