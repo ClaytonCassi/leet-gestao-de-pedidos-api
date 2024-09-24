@@ -34,4 +34,5 @@ export default interface ICreateOrderDTO {
   observacao?: string;
   formaPagamento?: string; 
   nomeVendedor?: string | undefined;
+  pagamentoVerificado?: 'não confirmado' | 'confirmado 50%' | 'confirmado 100%' | null;
 }

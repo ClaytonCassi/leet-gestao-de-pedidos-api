@@ -4,12 +4,13 @@ import { getRepository, Repository, LessThanOrEqual, MoreThanOrEqual } from 'typ
 import IAdditionalPricesRepository from '@modules/additional-prices/repositories/IAdditionalPricesRepository';
 import ICreateAdditionalPriceDTO from '@modules/additional-prices/dtos/ICreateAdditionalPriceDTO';
 import AdditionalPrice from '../entities/AdditionalPrice';
+import dataSource from '@shared/infra/typeorm/data-source';
 
 class AdditionalPricesRepository implements IAdditionalPricesRepository {
   private ormRepository: Repository<AdditionalPrice>;
 
   constructor() {
-    this.ormRepository = getRepository(AdditionalPrice);
+    this.ormRepository = dataSource.getRepository(AdditionalPrice);
   }
 
   public async create(data: ICreateAdditionalPriceDTO): Promise<AdditionalPrice> {

@@ -1,13 +1,14 @@
 import { getRepository, Repository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import IAdditionalPricesRepository from '@modules/price-calculator/repositories/IAdditionalPricesRepository';
 import AdditionalPrice from '@modules/additional-prices/infra/typeorm/entities/AdditionalPrice';
+import dataSource from '@shared/infra/typeorm/data-source';
 
 
 class AdditionalPricesRepository implements IAdditionalPricesRepository {
   private ormRepository: Repository<AdditionalPrice>;
 
   constructor() {
-    this.ormRepository = getRepository(AdditionalPrice);
+    this.ormRepository = dataSource.getRepository(AdditionalPrice);
   }
 
   public async findPriceByQuantity(additionalId: string, quantity: number): Promise<AdditionalPrice | undefined> {

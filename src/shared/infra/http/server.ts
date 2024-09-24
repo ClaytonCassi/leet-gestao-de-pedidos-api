@@ -10,9 +10,8 @@ import AppError from '@shared/errors/AppError';
 import rateLimiter from './middlewares/rateLimiter';
 import routes from './routes';
 
-import '@shared/infra/typeorm';
+import dataSource from '@shared/infra/typeorm/data-source'; // Importação ajustada
 import '@shared/container';
-
 
 dotenv.config();
 
@@ -50,7 +49,13 @@ app.use(
   },
 );
 
-app.listen(3333, '0.0.0.0', () => {
-  ora('Server Running').succeed();
-});
-
+// Inicializar o Data Source e iniciar o servidor
+dataSource.initialize()
+  .then(() => {
+    app.listen(3333, '0.0.0.0', () => {
+      ora('Server Running').succeed();
+    });
+  })
+  .catch((error) => {
+    console.error('Erro durante a inicialização do Data Source:', error);
+  });

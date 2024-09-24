@@ -2,6 +2,7 @@ import { Between, EntityManager, getRepository, Repository } from 'typeorm';
 import Order from '@modules/order/infra/typeorm/entities/Order';
 import IOrderRepository from '@modules/order/repositories/IOrderRepository';
 import ICreateOrderDTO from '@modules/order/dtos/ICreateOrderDTO';
+import dataSource from '@shared/infra/typeorm/data-source';
 
 
 
@@ -9,7 +10,7 @@ class OrderRepository implements IOrderRepository {
   private ormRepository: Repository<Order>;
 
   constructor() {
-    this.ormRepository = getRepository(Order);
+    this.ormRepository = dataSource.getRepository(Order);
   }
 
   public async create(data: ICreateOrderDTO): Promise<Order> {
@@ -46,6 +47,16 @@ class OrderRepository implements IOrderRepository {
       .where('order.id = :id', { id })
       .getOne();
   
+    return order || undefined;
+  }
+
+  public async findByNumeroPedido(numeroPedido: string): Promise<Order | undefined> {
+    // Padroniza o número para 6 caracteres com zeros à esquerda
+    const numeroPadronizado = numeroPedido.padStart(6, '0');
+    
+    const order = await this.ormRepository.findOne({
+      where: { numeroPedido: numeroPadronizado },
+    });
     return order || undefined;
   }
 
