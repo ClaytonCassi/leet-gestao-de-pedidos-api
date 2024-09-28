@@ -78,6 +78,9 @@ class Order {
   @Column({ type: 'varchar', nullable: true })
   nomeVendedor: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  nomeDesigner: string;
+
   @CreateDateColumn()
   created_at: Date;
 

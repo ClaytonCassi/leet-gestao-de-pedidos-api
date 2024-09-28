@@ -10,6 +10,7 @@ import ICreateOrderDTO, { IAdicionalDTO } from '../dtos/ICreateOrderDTO';
 import OrderProduct from '../infra/typeorm/entities/OrderProduct';
 import OrderProductAdditional from '../../../modules/product/infra/typeorm/entities/OrderProductAdditional';
 import IStorageProvider from '../../../shared/container/providers/StorageProvider/models/IStorageProvider';
+import CreateLogService from '../../../modules/log/services/CreateLogService';
 
 interface IRequestUpdate {
   id: string;
@@ -25,9 +26,12 @@ class UpdateOrderService {
 
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
+    
+    @inject('CreateLogService')
+    private createLogService: CreateLogService,
   ) {}
 
-  public async execute({ id, fieldsToUpdate, file }: IRequestUpdate): Promise<Order> {
+  public async execute({ id, fieldsToUpdate, file }: IRequestUpdate, user_name: string): Promise<Order> {
     let order = await this.orderRepository.findById(id);
 
     if (!order) {
@@ -62,6 +66,13 @@ class UpdateOrderService {
     } catch (error) {
       throw new Error('Erro ao salvar as mudanças: ' + (error as Error).message);
     }
+
+    await this.createLogService.execute({
+      module: 'Order',
+      event: 'Order Uptaded',
+      data: { order , fieldsToUpdate},
+      user_name, 
+    });
 
     return order;
   }

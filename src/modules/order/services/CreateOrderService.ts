@@ -44,10 +44,10 @@ class CreateOrderService {
     observacao,
     formaPagamento,
     nomeVendedor,
+    nomeDesigner,
   }: ICreateOrderDTO, user_name: string): Promise<Order> {
-    // Obter o último pedido
     const lastOrder = await this.ordersRepository.findLastOrder();
-    let numeroPedido = '000001'; // Número inicial padrão
+    let numeroPedido = '000001';
 
     if (lastOrder && lastOrder.numeroPedido) {
       const lastOrderNumber = parseInt(lastOrder.numeroPedido, 10);
@@ -97,6 +97,7 @@ class CreateOrderService {
     order.formaPagamento = formaPagamento;
     order.numeroPedido = numeroPedido; 
     order.nomeVendedor = nomeVendedor || ''; 
+    order.nomeDesigner = nomeDesigner || '';
 
     await this.ordersRepository.save(order);
 

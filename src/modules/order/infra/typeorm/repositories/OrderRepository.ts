@@ -16,7 +16,7 @@ class OrderRepository implements IOrderRepository {
   public async create(data: ICreateOrderDTO): Promise<Order> {
     const orderData = {
       ...data,
-      imagem: data.imagem ?? undefined,  // Converte null para undefined
+      imagem: data.imagem ?? undefined,
     };
   
     const order = this.ormRepository.create(orderData);
