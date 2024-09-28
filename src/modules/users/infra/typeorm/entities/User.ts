@@ -1,4 +1,3 @@
-import { APP_API_URL, AWS_S3_BUCKET } from '../../../../../shared/utils/environment';
 import {
   Entity,
   Column,
@@ -6,9 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
-import storageConfig from '../../../../../config/storage';
 import { Exclude, Expose } from 'class-transformer';
+import { APP_API_URL, AWS_S3_BUCKET } from '../../../../../shared/utils/environment';
+import storageConfig from '../../../../../config/storage';
 
 @Entity('users')
 class User {
@@ -27,6 +26,9 @@ class User {
 
   @Column()
   avatar: string;
+
+  @Column()
+  role: string;
 
   @CreateDateColumn()
   created_at: Date;

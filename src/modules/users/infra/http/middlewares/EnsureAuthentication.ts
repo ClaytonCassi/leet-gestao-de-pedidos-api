@@ -1,13 +1,7 @@
-// src/shared/infra/http/middlewares/ensureAuthentication.ts
-
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-
 import authConfig from '../../../../../config/auth';
-
 import AppError from '../../../../../shared/errors/AppError';
-
-
 import UsersRepository from '../../../../../modules/users/infra/typeorm/repositories/UsersRepository';
 
 interface ITokenPayload {
@@ -32,7 +26,6 @@ export default async function ensureAuthentication(
 
   try {
     const decoded = verify(token, authConfig.secret);
-
     const { sub } = decoded as ITokenPayload;
 
     const usersRepository = new UsersRepository();
@@ -45,6 +38,7 @@ export default async function ensureAuthentication(
     request.user = {
       id: sub,
       name: user.name,
+      role: user.role, 
     };
 
     return next();

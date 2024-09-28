@@ -9,6 +9,7 @@ import ShowOrderService from '../../../../../modules/order/services/ShowOrderSer
 import ICreateOrderDTO, { IOrderProductDTO } from '../../../../../modules/order/dtos/ICreateOrderDTO';
 import ShowOrderByNumeroService from '../../../../../modules/order/services/ShowOrderByNumeroService';
 import UpdatePagamentoVerificadoService from '../../../../../modules/order/services/UpdatePagamentoVerificadoService';
+import ShowOrderByCelularService from '../../../../../modules/order/services/ShowOrderByCelularService';
 
 // Configuração do Multer para armazenar arquivos em memória
 const upload = multer({ storage: multer.memoryStorage() });
@@ -185,6 +186,21 @@ class OrdersController {
       return response.status(204).send();
     } catch (error) {
       return response.status(404).json({ message: 'Pedido não encontrado.' });
+    }
+  }
+
+  public async showByCelular(request: Request, response: Response): Promise<Response> {
+    const { celular } = request.params;
+    const showOrderByCelular = container.resolve(ShowOrderByCelularService);
+  
+    try {
+      const orders = await showOrderByCelular.execute(celular);
+      return response.json(orders);
+    } catch (error) {
+      if (error instanceof Error) {
+        return response.status(404).json({ message: error.message });
+      }
+      return response.status(500).json({ message: 'Erro desconhecido' });
     }
   }
   

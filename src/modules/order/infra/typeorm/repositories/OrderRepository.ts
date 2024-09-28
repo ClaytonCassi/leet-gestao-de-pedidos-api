@@ -85,7 +85,10 @@ class OrderRepository implements IOrderRepository {
     return order;
   }
   
-  
+  public async findByCelular(celular: string): Promise<Order[]> {
+    const orders = await this.ormRepository.find({ where: { celular } });
+    return orders;
+  }
   
   
 

@@ -51,7 +51,7 @@ app.use(
   },
 );
 
-const PORT = Number(process.env.PORT) || 8080; // Ajuste para usar a porta correta
+const PORT = Number(process.env.PORT) || 8080;
 dataSource.initialize()
   .then(() => {
     app.listen(PORT, '0.0.0.0', () => {
