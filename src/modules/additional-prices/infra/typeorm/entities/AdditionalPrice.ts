@@ -1,4 +1,4 @@
-import Additional from '@modules/additional/infra/typeorm/entities/Additional';
+import Additional from '../../../../../modules/additional/infra/typeorm/entities/Additional';
 import {
   Entity,
   Column,

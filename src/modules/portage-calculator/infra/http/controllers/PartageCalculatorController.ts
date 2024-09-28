@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import PartageCalculatorService from '../../../services/PartageCalculatorService';
 
+
 class PartageCalculatorController {
   public async calcularFrete(request: Request, response: Response): Promise<Response> {
     const { cepOrigem, cepDestino, vlrMerc, pesoMerc, volumes } = request.body;

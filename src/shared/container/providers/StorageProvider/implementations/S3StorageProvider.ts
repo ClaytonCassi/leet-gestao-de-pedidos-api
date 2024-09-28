@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import aws, { S3 } from 'aws-sdk';
 import mime from 'mime';
-import uploadConfig from '@config/storage';
-import { AWS_S3_BUCKET } from '@shared/utils/environment';
-import AppError from '@shared/errors/AppError';
+import uploadConfig from '../../../../../config/storage';
+import { AWS_S3_BUCKET } from '../../../../../shared/utils/environment';
+import AppError from '../../../../../shared/errors/AppError';
 import IStorageProvider from '../models/IStorageProvider';
 
 class S3StorageProvider implements IStorageProvider {

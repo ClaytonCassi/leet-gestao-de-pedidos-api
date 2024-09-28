@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateProductService from '@modules/product/services/CreateProductService';
-import ListProductsService from '@modules/product/services/ListProductsService';
-import UpdateProductService from '@modules/product/services/UpdateProductService';
-import DeleteProductService from '@modules/product/services/DeleteProductService';
-import ShowProductService from '@modules/product/services/ShowProductService';
+import CreateProductService from '../../../../../modules/product/services/CreateProductService';
+import ListProductsService from '../../../../../modules/product/services/ListProductsService';
+import UpdateProductService from '../../../../../modules/product/services/UpdateProductService';
+import DeleteProductService from '../../../../../modules/product/services/DeleteProductService';
+import ShowProductService from '../../../../../modules/product/services/ShowProductService';
 
 class ProductsController {
   public async create(request: Request, response: Response): Promise<Response> {

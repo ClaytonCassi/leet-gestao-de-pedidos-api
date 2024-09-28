@@ -1,16 +1,16 @@
 import { injectable, inject } from 'tsyringe';
-import IOrdersRepository from '@modules/order/repositories/IOrderRepository';
-import Order from '@modules/order/infra/typeorm/entities/Order';
-import OrderProduct from '@modules/order/infra/typeorm/entities/OrderProduct';
-import OrderProductAdditional from '@modules/product/infra/typeorm/entities/OrderProductAdditional';
-import ICreateOrderDTO from '@modules/order/dtos/ICreateOrderDTO';
-import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import IOrdersRepository from '../../../modules/order/repositories/IOrderRepository';
+import Order from '../../../modules/order/infra/typeorm/entities/Order';
+import OrderProduct from '../../../modules/order/infra/typeorm/entities/OrderProduct';
+import OrderProductAdditional from '../../../modules/product/infra/typeorm/entities/OrderProductAdditional';
+import ICreateOrderDTO from '../../../modules/order/dtos/ICreateOrderDTO';
+import IStorageProvider from '../../../shared/container/providers/StorageProvider/models/IStorageProvider';
 
 import fs from 'fs';
 import path from 'path';
-import uploadConfig from '@config/storage';
+import uploadConfig from '../../../config/storage';
 import { format } from 'date-fns';
-import CreateLogService from '@modules/log/services/CreateLogService';
+import CreateLogService from '../../../modules/log/services/CreateLogService';
 
 @injectable()
 class CreateOrderService {

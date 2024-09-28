@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import IFeedbackRepository from '@modules/feedback/repositories/IFeedbackRepository';
+import IFeedbackRepository from '../../../modules/feedback/repositories/IFeedbackRepository';
 
 @injectable()
 class DeleteFeedbackService {

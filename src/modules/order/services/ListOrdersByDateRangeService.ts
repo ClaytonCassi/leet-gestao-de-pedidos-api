@@ -1,8 +1,8 @@
 // src/modules/order/services/ListOrdersByDateRangeService.ts
 
 import { injectable, inject } from 'tsyringe';
-import IOrderRepository from '@modules/order/repositories/IOrderRepository';
-import Order from '@modules/order/infra/typeorm/entities/Order';
+import IOrderRepository from '../../../modules/order/repositories/IOrderRepository';
+import Order from '../../../modules/order/infra/typeorm/entities/Order';
 import { format } from 'date-fns';
 
 @injectable()

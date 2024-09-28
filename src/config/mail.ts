@@ -2,7 +2,7 @@ import {
   MAIL_DRIVER,
   MAIL_OWNER,
   MAIL_DOMAIN,
-} from '@shared/utils/environment';
+} from '../shared/utils/environment';
 
 interface IMailConfig {
   driver: 'ethereal' | 'ses';

@@ -1,8 +1,8 @@
 // src/modules/order/services/DeleteOrderService.ts
 
 import { injectable, inject } from 'tsyringe';
-import IOrderRepository from '@modules/order/repositories/IOrderRepository';
-import CreateLogService from '@modules/log/services/CreateLogService';
+import IOrderRepository from '../../../modules/order/repositories/IOrderRepository';
+import CreateLogService from '../../../modules/log/services/CreateLogService';
 
 @injectable()
 class DeleteOrderService {

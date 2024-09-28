@@ -1,7 +1,7 @@
 // src/modules/product/services/DeleteProductService.ts
 
 import { injectable, inject } from 'tsyringe';
-import IProductRepository from '@modules/product/repositories/IProductRepository';
+import IProductRepository from '../../../modules/product/repositories/IProductRepository';
 
 @injectable()
 class DeleteProductService {

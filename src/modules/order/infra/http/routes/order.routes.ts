@@ -15,6 +15,7 @@ ordersRouter.patch('/:id', upload.single('imagemPedido'), ordersController.updat
 ordersRouter.delete('/:id', ordersController.delete);
 ordersRouter.get('/numero/:numeroPedido', ordersController.showByNumeroPedido);
 ordersRouter.patch('/verificacao-pagamento/:id', ordersController.updatePagamentoVerificado);
+ordersRouter.get('/celular/:celular', ordersController.showByCelular);
 
 
 export default ordersRouter;

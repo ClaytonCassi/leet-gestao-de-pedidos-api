@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateFeedbackService from '@modules/feedback/services/CreateFeedbackService';
-import ListFeedbackService from '@modules/feedback/services/ListFeedbacksService';
-import UpdateFeedbackService from '@modules/feedback/services/UpdateFeedbackService';
-import DeleteFeedbackService from '@modules/feedback/services/DeleteFeedbackService';
-import ShowFeedbackService from '@modules/feedback/services/ShowFeedbackService';
+import CreateFeedbackService from '../../../../../modules/feedback/services/CreateFeedbackService';
+import ListFeedbackService from '../../../../../modules/feedback/services/ListFeedbacksService';
+import UpdateFeedbackService from '../../../../../modules/feedback/services/UpdateFeedbackService';
+import DeleteFeedbackService from '../../../../../modules/feedback/services/DeleteFeedbackService';
+import ShowFeedbackService from '../../../../../modules/feedback/services/ShowFeedbackService';
 
 class FeedbackController {
   public async create(request: Request, response: Response): Promise<Response> {

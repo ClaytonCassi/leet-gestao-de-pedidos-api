@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
-import mailConfig from '@config/mail';
-import storageConfig from '@config/storage';
+import mailConfig from '../../../config/mail'
+import storageConfig from '../../../config/storage';
 
 import IStorageProvider from './StorageProvider/models/IStorageProvider';
 import DiskStorageProvider from './StorageProvider/implementations/DiskStorageProvider';

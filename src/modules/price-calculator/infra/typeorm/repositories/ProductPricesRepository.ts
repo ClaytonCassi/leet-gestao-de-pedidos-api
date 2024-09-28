@@ -1,7 +1,7 @@
-import { getRepository, Repository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
-import IProductPricesRepository from '@modules/price-calculator/repositories/IProductPricesRepository';
-import ProductPrice from '@modules/product-prices/infra/typeorm/entities/ProductPrice';
-import dataSource from '@shared/infra/typeorm/data-source';
+import { Repository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import IProductPricesRepository from '../../../../../modules/price-calculator/repositories/IProductPricesRepository';
+import ProductPrice from '../../../../../modules/product-prices/infra/typeorm/entities/ProductPrice';
+import dataSource from '../../../../../shared/infra/typeorm/data-source';
 
 
 class ProductPricesRepository implements IProductPricesRepository {

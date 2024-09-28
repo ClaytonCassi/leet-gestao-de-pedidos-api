@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import AppError from '@shared/errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 import ProductPrice from '../infra/typeorm/entities/ProductPrice';
 import IProductPricesRepository from '../repositories/IProductPricesRepository';
 

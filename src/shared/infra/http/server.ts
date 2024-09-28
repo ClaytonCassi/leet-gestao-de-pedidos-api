@@ -5,13 +5,15 @@ import express, { Request, Response, NextFunction } from 'express';
 import ora from 'ora';
 import cors from 'cors';
 import { errors } from 'celebrate';
-import uploadConfig from '@config/storage';
-import AppError from '@shared/errors/AppError';
+import uploadConfig from '../../../config/storage';
+
 import rateLimiter from './middlewares/rateLimiter';
 import routes from './routes';
 
-import dataSource from '@shared/infra/typeorm/data-source'; // Importação ajustada
-import '@shared/container';
+import AppError from '../../../shared/errors/AppError';
+
+import dataSource from '../../../shared/infra/typeorm/data-source'; 
+import '../../../shared/container';
 
 dotenv.config();
 
@@ -49,11 +51,11 @@ app.use(
   },
 );
 
-// Inicializar o Data Source e iniciar o servidor
+const PORT = Number(process.env.PORT) || 8080;
 dataSource.initialize()
   .then(() => {
-    app.listen(3333, '0.0.0.0', () => {
-      ora('Server Running').succeed();
+    app.listen(PORT, '0.0.0.0', () => {
+      ora(`Server Running on port ${PORT}`).succeed();
     });
   })
   .catch((error) => {

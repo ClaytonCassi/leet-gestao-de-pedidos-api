@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateProductPriceService from '@modules/product-prices/services/CreateProductPriceService';
-import ListProductPricesService from '@modules/product-prices/services/ListProductPricesService';
-import UpdateProductPriceService from '@modules/product-prices/services/UpdateProductPriceService';
-import DeleteProductPriceService from '@modules/product-prices/services/DeleteProductPriceService';
-import ShowProductPriceService from '@modules/product-prices/services/ShowProductPriceService';
-import ListProductPricesByProductService from '@modules/product-prices/services/ListProductPricesByProductService';
+import CreateProductPriceService from '../../../../../modules/product-prices/services/CreateProductPriceService';
+import ListProductPricesService from '../../../../../modules/product-prices/services/ListProductPricesService';
+import UpdateProductPriceService from '../../../../../modules/product-prices/services/UpdateProductPriceService';
+import DeleteProductPriceService from '../../../../../modules/product-prices/services/DeleteProductPriceService';
+import ShowProductPriceService from '../../../../../modules/product-prices/services/ShowProductPriceService';
+import ListProductPricesByProductService from '../../../../../modules/product-prices/services/ListProductPricesByProductService';
 
 class ProductPricesController {
   public async create(request: Request, response: Response): Promise<Response> {

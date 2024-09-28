@@ -1,39 +1,39 @@
 import { container } from 'tsyringe';
 
-import '@modules/users/providers';
+import '../../modules/users/providers';
 import './providers';
 
 
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+import IUsersRepository from '../../modules/users/repositories/IUsersRepository';
+import UsersRepository from '../../modules/users/infra/typeorm/repositories/UsersRepository';
 
-import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
-import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
+import IUserTokensRepository from '../../modules/users/repositories/IUserTokensRepository';
+import UserTokensRepository from '../../modules/users/infra/typeorm/repositories/UserTokensRepository';
 
-import IOrderRepository from '@modules/order/repositories/IOrderRepository';
-import OrderRepository from '@modules/order/infra/typeorm/repositories/OrderRepository';
+import IOrderRepository from '../../modules/order/repositories/IOrderRepository';
+import OrderRepository from '../../modules/order/infra/typeorm/repositories/OrderRepository';
 
-import IProductRepository from '@modules/product/repositories/IProductRepository';
-import ProductRepository from '@modules/product/infra/typeorm/repositories/ProductRepository';
-
-
-import IAdditionalRepository from '@modules/additional/repositories/IAdditionalRepository';
-import AdditionalRepository from '@modules/additional/infra/typeorm/repositories/AdditionalRepository';
+import IProductRepository from '../../modules/product/repositories/IProductRepository';
+import ProductRepository from '../../modules/product/infra/typeorm/repositories/ProductRepository';
 
 
-import IFeedbackRepository from '@modules/feedback/repositories/IFeedbackRepository';
-import FeedbackRepository from '@modules/feedback/infra/typeorm/repositories/FeedbackRepository';
+import IAdditionalRepository from '../../modules/additional/repositories/IAdditionalRepository';
+import AdditionalRepository from '../../modules/additional/infra/typeorm/repositories/AdditionalRepository';
 
-import IProductPricesRepository from '@modules/product-prices/repositories/IProductPricesRepository';
-import ProductPricesRepository from '@modules/product-prices/infra/typeorm/repositories/ProductPricesRepository';
 
-import IAdditionalPricesRepository from '@modules/additional-prices/repositories/IAdditionalPricesRepository';
-import AdditionalPricesRepository from '@modules/additional-prices/infra/typeorm/repositories/AdditionalPricesRepository';
+import IFeedbackRepository from '../../modules/feedback/repositories/IFeedbackRepository';
+import FeedbackRepository from '../../modules/feedback/infra/typeorm/repositories/FeedbackRepository';
 
-import { ILogRepository } from '@modules/log/repositories/ILogRepository';
-import LogRepository from '@modules/log/infra/typeorm/repositories/LogRepository';
+import IProductPricesRepository from '../../modules/product-prices/repositories/IProductPricesRepository';
+import ProductPricesRepository from '../../modules/product-prices/infra/typeorm/repositories/ProductPricesRepository';
 
-import CreateLogService from '@modules/log/services/CreateLogService';
+import IAdditionalPricesRepository from '../../modules/additional-prices/repositories/IAdditionalPricesRepository';
+import AdditionalPricesRepository from '../../modules/additional-prices/infra/typeorm/repositories/AdditionalPricesRepository';
+
+import { ILogRepository } from '../../modules/log/repositories/ILogRepository';
+import LogRepository from '../../modules/log/infra/typeorm/repositories/LogRepository';
+
+import CreateLogService from '../../modules/log/services/CreateLogService';
 
 container.registerSingleton<CreateLogService>(
   'CreateLogService',

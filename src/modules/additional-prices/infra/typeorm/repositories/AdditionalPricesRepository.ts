@@ -1,10 +1,10 @@
 // AdditionalPricesRepository.ts
 
-import { getRepository, Repository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
-import IAdditionalPricesRepository from '@modules/additional-prices/repositories/IAdditionalPricesRepository';
-import ICreateAdditionalPriceDTO from '@modules/additional-prices/dtos/ICreateAdditionalPriceDTO';
+import { Repository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import IAdditionalPricesRepository from '../../../../../modules/additional-prices/repositories/IAdditionalPricesRepository';
+import ICreateAdditionalPriceDTO from '../../../../../modules/additional-prices/dtos/ICreateAdditionalPriceDTO';
 import AdditionalPrice from '../entities/AdditionalPrice';
-import dataSource from '@shared/infra/typeorm/data-source';
+import dataSource from '../../../../../shared/infra/typeorm/data-source';
 
 class AdditionalPricesRepository implements IAdditionalPricesRepository {
   private ormRepository: Repository<AdditionalPrice>;

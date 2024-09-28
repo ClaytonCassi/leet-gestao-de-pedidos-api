@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
-import AppError from '@shared/errors/AppError';
+import AppError from '../../../../shared/errors/AppError';
 
 const limiter = new RateLimiterMemory({
   keyPrefix: 'rateLimit',

@@ -1,5 +1,5 @@
-import Order from '@modules/order/infra/typeorm/entities/Order';
-import ICreateOrderDTO from '@modules/order/dtos/ICreateOrderDTO';
+import Order from '../../../modules/order/infra/typeorm/entities/Order';
+import ICreateOrderDTO from '../../../modules/order/dtos/ICreateOrderDTO';
 import { EntityManager } from 'typeorm';
 
 
@@ -11,6 +11,7 @@ export default interface IOrderRepository {
   update(id: string, data: Partial<ICreateOrderDTO>): Promise<Order>;
   delete(id: string): Promise<void>;
   findAllInDateRange(startDate: Date, endDate: Date): Promise<Order[]>;
-  findLastOrder(): Promise<Order | undefined>
-  findByNumeroPedido(numeroPedido: string): Promise<Order | undefined> 
+  findLastOrder(): Promise<Order | undefined>;
+  findByNumeroPedido(numeroPedido: string): Promise<Order | undefined>;
+  findByCelular(celular: string): Promise<Order[]>;
 }

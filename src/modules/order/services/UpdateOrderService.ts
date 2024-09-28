@@ -2,14 +2,14 @@ import { injectable, inject } from 'tsyringe';
 import fs from 'fs';
 import path from 'path';
 import { format } from 'date-fns';
-import uploadConfig from '@config/storage';
+import uploadConfig from '../../../config/storage';
 import { getRepository } from 'typeorm';
-import IOrderRepository from '@modules/order/repositories/IOrderRepository';
-import Order from '@modules/order/infra/typeorm/entities/Order';
+import IOrderRepository from '../../../modules/order/repositories/IOrderRepository';
+import Order from '../../../modules/order/infra/typeorm/entities/Order';
 import ICreateOrderDTO, { IAdicionalDTO } from '../dtos/ICreateOrderDTO';
 import OrderProduct from '../infra/typeorm/entities/OrderProduct';
-import OrderProductAdditional from '@modules/product/infra/typeorm/entities/OrderProductAdditional';
-import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import OrderProductAdditional from '../../../modules/product/infra/typeorm/entities/OrderProductAdditional';
+import IStorageProvider from '../../../shared/container/providers/StorageProvider/models/IStorageProvider';
 
 interface IRequestUpdate {
   id: string;

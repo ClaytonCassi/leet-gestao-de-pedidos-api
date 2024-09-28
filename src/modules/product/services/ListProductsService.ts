@@ -1,8 +1,8 @@
 // src/modules/product/services/ListProductsService.ts
 
 import { injectable, inject } from 'tsyringe';
-import IProductRepository from '@modules/product/repositories/IProductRepository';
-import Product from '@modules/product/infra/typeorm/entities/Product';
+import IProductRepository from '../../../modules/product/repositories/IProductRepository';
+import Product from '../../../modules/product/infra/typeorm/entities/Product';
 
 @injectable()
 class ListProductsService {

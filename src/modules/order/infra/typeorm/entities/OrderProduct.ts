@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import Order from './Order';
 import Product from '../../../../product/infra/typeorm/entities/Product';
-import OrderProductAdditional from '../../../../product/infra/typeorm/entities/OrderProductAdditional'; // Garanta que o caminho esteja correto
+import OrderProductAdditional from '../../../../product/infra/typeorm/entities/OrderProductAdditional'; 
 
 @Entity('order_products')
 class OrderProduct {

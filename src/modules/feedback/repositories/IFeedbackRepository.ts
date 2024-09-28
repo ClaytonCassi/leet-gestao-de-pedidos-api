@@ -1,5 +1,5 @@
-import Feedback from '@modules/feedback/infra/typeorm/entities/Feedback';
-import ICreateFeedbackDTO from '@modules/feedback/dtos/ICreateFeedbackDTO';
+import Feedback from '../../../modules/feedback/infra/typeorm/entities/Feedback';
+import ICreateFeedbackDTO from '../../../modules/feedback/dtos/ICreateFeedbackDTO';
 
 interface IFeedbackRepository {
   create(data: ICreateFeedbackDTO): Promise<Feedback>;

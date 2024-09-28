@@ -1,8 +1,8 @@
 import { Between, EntityManager, getRepository, Repository } from 'typeorm';
-import Order from '@modules/order/infra/typeorm/entities/Order';
-import IOrderRepository from '@modules/order/repositories/IOrderRepository';
-import ICreateOrderDTO from '@modules/order/dtos/ICreateOrderDTO';
-import dataSource from '@shared/infra/typeorm/data-source';
+import Order from '../../../../../modules/order/infra/typeorm/entities/Order';
+import IOrderRepository from '../../../../../modules/order/repositories/IOrderRepository';
+import ICreateOrderDTO from '../../../../../modules/order/dtos/ICreateOrderDTO';
+import dataSource from '../../../../../shared/infra/typeorm/data-source';
 
 
 
@@ -85,7 +85,10 @@ class OrderRepository implements IOrderRepository {
     return order;
   }
   
-  
+  public async findByCelular(celular: string): Promise<Order[]> {
+    const orders = await this.ormRepository.find({ where: { celular } });
+    return orders;
+  }
   
   
 
