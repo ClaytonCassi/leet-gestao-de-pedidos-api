@@ -55,6 +55,7 @@ class OrdersController {
       observacao,
       formaPagamento,
       nomeVendedor,
+      nomeDesigner, 
     } = request.body;
 
     const userName = (request.headers['x-user-name'] as string) || '';
@@ -112,6 +113,7 @@ class OrdersController {
       formaPagamento,
       imagem: imagemPedidoUrl,
       nomeVendedor,
+      nomeDesigner,
     };
 
     const order = await createOrder.execute(orderData, userName);
@@ -161,14 +163,17 @@ class OrdersController {
       formaPagamento: request.body.formaPagamento,
       numeroPedido: request.body.numeroPedido, 
       nomeVendedor: request.body.nomeVendedor, 
+      nomeDesigner: request.body.nomeDesigner,
     };
-  
+
+    const userName = (request.headers['x-user-name'] as string) || '';
+
     if (imagemPedidoUrl) {
       fieldsToUpdate.imagem = imagemPedidoUrl;
     }
   
     try {
-      const updatedOrder = await updateOrderService.execute({ id, fieldsToUpdate });
+      const updatedOrder = await updateOrderService.execute({ id, fieldsToUpdate }, userName);
       return response.json(updatedOrder);
     } catch (error) {
       return response.status(404).json({ message: 'Pedido não encontrado.' });

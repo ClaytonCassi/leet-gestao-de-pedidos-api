@@ -28,6 +28,7 @@ describe('CreateUser', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '12345678',
+       role: 'vendedor'
     });
 
     expect(user).toHaveProperty('id');
@@ -38,6 +39,7 @@ describe('CreateUser', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '12345678',
+       role: 'vendedor'
     });
 
     await expect(
@@ -45,6 +47,7 @@ describe('CreateUser', () => {
         name: 'John Doe',
         email: 'johndoe@example.com',
         password: '12345678',
+         role: 'vendedor'
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

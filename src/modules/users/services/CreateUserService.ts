@@ -10,6 +10,7 @@ interface IRequest {
   name: string;
   email: string;
   password: string;
+  role: string;
 }
 @injectable()
 class CreateUserService {
@@ -34,7 +35,7 @@ class CreateUserService {
     this.cacheProvider = cacheProvider;
   }
 
-  public async execute({ name, email, password }: IRequest): Promise<User> {
+  public async execute({ name, email, password, role }: IRequest): Promise<User> {
     if (await this.usersRepository.findByEmail(email)) {
       throw new AppError('Email address already used.');
     }
@@ -45,6 +46,7 @@ class CreateUserService {
       name,
       email,
       password: hash_password,
+      role,
     });
 
     await this.cacheProvider.invalidatePrefix('providers-list');

@@ -38,7 +38,7 @@ export default async function ensureAuthentication(
     request.user = {
       id: sub,
       name: user.name,
-      role: user.role, 
+      role: user.role || null, 
     };
 
     return next();

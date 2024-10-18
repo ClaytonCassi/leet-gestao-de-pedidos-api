@@ -11,6 +11,7 @@ import productPricesRouter from '../../../../modules/product-prices/infra/http/r
 import additionalPricesRouter from '../../../../modules/additional-prices/infra/http/routes/additionalPrices.routes';
 import priceCalculatorRouter from '../../../../modules/price-calculator/infra/http/routes/price-calculator.routes';
 import partageCalculatorRouter from '../../../../modules/portage-calculator/infra/http/routes/partageCalculator.routes';
+import orderTrackingRouter from '../../../../modules/order-tracking/infra/http/routes/order-tracking.routes';
 
 const routes = Router();
 
@@ -25,6 +26,7 @@ routes.use('/feedback', feedbackRouter);
 routes.use('/product-prices', productPricesRouter);
 routes.use('/additional-prices', additionalPricesRouter);
 routes.use('/calculate-price', priceCalculatorRouter);
-routes.use('/partage-calculator', partageCalculatorRouter);
+routes.use('/partage-calculator', partageCalculatorRouter); 
+routes.use('/order-tracking', orderTrackingRouter);
 
 export default routes;

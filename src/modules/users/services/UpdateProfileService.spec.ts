@@ -23,6 +23,7 @@ describe('UpdateProfile', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123123',
+       role: 'vendedor'
     });
 
     const updatedUser = await updateProfileService.execute({
@@ -52,12 +53,14 @@ describe('UpdateProfile', () => {
       name: 'Fulano',
       email: 'fulano@example.com',
       password: '123123',
+       role: 'vendedor'
     });
 
     await fakeUsersRepository.create({
       name: 'Cicrano',
       email: 'cicrano@example.com',
       password: '123123',
+       role: 'vendedor'
     });
 
     await expect(
@@ -74,6 +77,7 @@ describe('UpdateProfile', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123123',
+       role: 'vendedor'
     });
 
     const updatedUser = await updateProfileService.execute({
@@ -92,6 +96,7 @@ describe('UpdateProfile', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123123',
+      role: 'vendedor'
     });
 
     await expect(
@@ -109,6 +114,7 @@ describe('UpdateProfile', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123123',
+      role: 'vendedor'
     });
 
     await expect(
