@@ -27,6 +27,7 @@ describe('ShowProfileService', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123123',
+       role: 'vendedor'
     });
 
     await updateUserAvatarService.execute({

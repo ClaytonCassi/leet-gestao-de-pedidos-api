@@ -62,28 +62,31 @@ class OrderRepository implements IOrderRepository {
 
 
   public async update(orderId: string, data: Partial<ICreateOrderDTO>): Promise<Order> {
-    const orderRepository = getRepository(Order);
+    const orderRepository = dataSource.getRepository(Order);  // Usando dataSource
+  
     let order = await orderRepository.findOne({
       where: { id: orderId },
-      relations: ["produtos", "produtos.adicionais"]
+      relations: ["produtos", "produtos.adicionais"],
     });
   
     if (!order) {
       throw new Error('Pedido não encontrado.');
     }
   
-    // A função Object.assign copia propriedades de 'data' para 'order'
+    // Copia as propriedades de 'data' para 'order'
     Object.assign(order, data);
-    
-    // O TypeORM cuidará do restante devido às configurações de cascata
+  
+    // Tenta salvar o pedido atualizado
     try {
       await orderRepository.save(order);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      throw new Error('Erro ao salvar o pedido atualizado.');
     }
-    await orderRepository.save(order);
+  
     return order;
   }
+  
   
   public async findByCelular(celular: string): Promise<Order[]> {
     const orders = await this.ormRepository.find({ where: { celular } });

@@ -30,10 +30,21 @@ import ProductPricesRepository from '../../modules/product-prices/infra/typeorm/
 import IAdditionalPricesRepository from '../../modules/additional-prices/repositories/IAdditionalPricesRepository';
 import AdditionalPricesRepository from '../../modules/additional-prices/infra/typeorm/repositories/AdditionalPricesRepository';
 
+
 import { ILogRepository } from '../../modules/log/repositories/ILogRepository';
 import LogRepository from '../../modules/log/infra/typeorm/repositories/LogRepository';
 
 import CreateLogService from '../../modules/log/services/CreateLogService';
+
+import IOrderTrackingRepository from '../../modules/order-tracking/repositories/IOrderTrackingRepository';
+import OrderTrackingRepository from '../../modules/order-tracking/infra/typeorm/repositories/OrderTrackingRepository';
+
+
+
+container.registerSingleton<IOrderTrackingRepository>(
+  'OrderTrackingRepository',
+  OrderTrackingRepository,
+);
 
 container.registerSingleton<CreateLogService>(
   'CreateLogService',
