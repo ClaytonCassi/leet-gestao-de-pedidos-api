@@ -40,11 +40,11 @@ class CalculatePriceService {
 
     // Regras para itens adicionais
     const additionalRules: { [key: string]: string } = {
-      'Sobreposição': '*OBS: Esse valor já incluso a personalização: ➤ Frente ➤ Personalização em uma única cor',
-      'Silk': '*OBS: Esse valor já incluso a personalização: ➤ Frente ➤ Personalização em uma única cor',
+      'Sobreposição': '**OBS: Esse valor já incluso a personalização ➤ Arte na frente. NÃO incluso o verso ➤ Personalização Sobreposição DUAS CORES (Dourado, Branco, Prata, Rosê)*',
+      'Silk': '*OBS: Esse valor já incluso a personalização: ➤ Frente ➤ Personalização em uma única cor (Dourado, Branco, Prata, Rosê)',
       'Personalização Colorida': '*OBS: Esse valor já incluso a personalização ➤ Arte na frente. NÃO incluso o verso ➤ Personalização colorida (EXCETO BRANCO, DOURADO, PRATA E ROSÊ)*',
       'Personalização Verso': '*OBS: Esse valor já incluso a personalização. ➤ Frente e verso',
-      'Silk (Verso)': '*OBS: Esse valor já incluso a personalização: ➤ Frente e verso ➤ Personalização em uma única cor'
+      'Silk (Verso)': '*OBS: Esse valor já incluso a personalização: ➤ Frente e verso ➤ Personalização em uma única cor (Dourado, Branco, Prata, Rosê)'
     };
 
     for (const budget of budgets) {

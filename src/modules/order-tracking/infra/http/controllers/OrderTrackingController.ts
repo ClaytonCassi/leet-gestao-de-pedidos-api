@@ -13,8 +13,8 @@ class OrderTrackingController {
       nomeFuncionarioArte, 
       dataEnvio, 
       statusPagamento, 
-      nomeCliente, // Novo campo
-      celularCliente // Novo campo
+      nomeCliente,
+      celularCliente 
     } = request.body;
 
     const createOrderTracking = container.resolve(CreateOrderTrackingService);
@@ -46,12 +46,16 @@ class OrderTrackingController {
   }
   
   public async list(request: Request, response: Response): Promise<Response> {
+    const { startDate, endDate } = request.query;
     const listOrderTracking = container.resolve(ListOrderTrackingService);
 
-    const orderTrackings = await listOrderTracking.execute();
+    const orderTrackings = await listOrderTracking.execute({
+        startDate: startDate as string,
+        endDate: endDate as string,
+    });
 
     return response.json(orderTrackings);
-  }
+}
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
@@ -60,8 +64,8 @@ class OrderTrackingController {
       nomeFuncionarioArte, 
       dataEnvio, 
       statusPagamento, 
-      nomeCliente, // Novo campo
-      celularCliente // Novo campo
+      nomeCliente,
+      celularCliente
     } = request.body;
 
     const updateOrderTracking = container.resolve(UpdateOrderTrackingService);

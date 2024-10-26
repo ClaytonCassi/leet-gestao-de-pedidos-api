@@ -19,6 +19,7 @@
     "class-transformer": "^0.2.3",
     "cors": "^2.8.5",
     "date-fns": "^2.12.0",
+    "date-fns-tz": "^3.2.0",
     "dotenv": "^16.4.5",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -66,4 +67,3 @@
     "typescript": "^5.5.4"
   }
 }
-

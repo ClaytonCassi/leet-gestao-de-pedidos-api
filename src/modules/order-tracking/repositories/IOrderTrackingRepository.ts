@@ -8,6 +8,7 @@ interface IOrderTrackingRepository {
   findAll(): Promise<OrderTracking[]>;
   update(id: string, data: Partial<OrderTracking>): Promise<OrderTracking>;
   delete(id: string): Promise<void>;
+  findAllByDateRange(startDate?: Date, endDate?: Date): Promise<OrderTracking[]>;
 }
 
 export default IOrderTrackingRepository;

@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import OrderTracking from '../entities/OrderTracking';
 import dataSource from '../../../../../shared/infra/typeorm/data-source';
 import IOrderTrackingRepository from '../../../../../modules//order-tracking/repositories/IOrderTrackingRepository';
-import ICreateOrderTrackingDTO from '@modules/order-tracking/dtos/ICreateOrderTrackingDTO';
+import ICreateOrderTrackingDTO from '../../../../../modules/order-tracking/dtos/ICreateOrderTrackingDTO';
 
 
 class OrderTrackingRepository implements IOrderTrackingRepository {
@@ -21,6 +21,21 @@ class OrderTrackingRepository implements IOrderTrackingRepository {
     await this.ormRepository.save(orderTracking);
     return orderTracking;
   }
+
+  public async findAllByDateRange(startDate?: Date, endDate?: Date): Promise<OrderTracking[]> {
+    const query = this.ormRepository.createQueryBuilder('orderTracking');
+
+    if (startDate) {
+        query.andWhere('orderTracking.dataEnvio >= :startDate', { startDate });
+    }
+
+    if (endDate) {
+  
+        query.andWhere('orderTracking.dataEnvio <= :endDate', { endDate });
+    }
+
+    return await query.getMany();
+}
 
   public async findAll(): Promise<OrderTracking[]> {
     return this.ormRepository.find();
