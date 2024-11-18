@@ -12,6 +12,7 @@ import additionalPricesRouter from '../../../../modules/additional-prices/infra/
 import priceCalculatorRouter from '../../../../modules/price-calculator/infra/http/routes/price-calculator.routes';
 import partageCalculatorRouter from '../../../../modules/portage-calculator/infra/http/routes/partageCalculator.routes';
 import orderTrackingRouter from '../../../../modules/order-tracking/infra/http/routes/order-tracking.routes';
+import graduationCommissionRouter from '../../../../modules/graduation-commission/infra/http/routes/graduation-commission.routes';
 
 const routes = Router();
 
@@ -28,5 +29,6 @@ routes.use('/additional-prices', additionalPricesRouter);
 routes.use('/calculate-price', priceCalculatorRouter);
 routes.use('/partage-calculator', partageCalculatorRouter); 
 routes.use('/order-tracking', orderTrackingRouter);
+routes.use('/graduation-commission', graduationCommissionRouter);
 
 export default routes;

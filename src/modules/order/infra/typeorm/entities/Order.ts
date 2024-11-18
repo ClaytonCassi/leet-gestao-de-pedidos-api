@@ -5,8 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import Product from './OrderProduct';
+import GraduationCommission from '../../../../../modules/graduation-commission/infra/typeorm/entities/GraduationCommission';
+
 
 @Entity('orders')
 class Order {
@@ -80,6 +84,20 @@ class Order {
 
   @Column({ type: 'varchar', nullable: true })
   nomeDesigner: string;
+
+
+  @ManyToOne(() => GraduationCommission)
+  @JoinColumn({ name: 'comissao_formatura_id' })
+  comissaoFormatura: GraduationCommission;
+
+  @Column({ type: 'uuid', nullable: true, name: 'comissao_formatura_id' }) 
+  comissaoFormaturaId?: string;
+
+  @Column({ type: 'varchar', nullable: true, name: 'tipo_desconto' }) 
+  tipoDesconto: 'CUPOM_FORMANDO_15' | 'CUPOM_COMISSAO_35' | null;
+
+  @Column({ type: 'varchar', nullable: true, name: 'padrao_desconto' }) 
+  padraoDesconto: string;
 
   @CreateDateColumn()
   created_at: Date;

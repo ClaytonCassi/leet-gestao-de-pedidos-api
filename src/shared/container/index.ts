@@ -40,6 +40,16 @@ import IOrderTrackingRepository from '../../modules/order-tracking/repositories/
 import OrderTrackingRepository from '../../modules/order-tracking/infra/typeorm/repositories/OrderTrackingRepository';
 
 
+import GraduationCommissionRepository from '../../modules/graduation-commission/infra/typeorm/repositories/GraduationCommissionRepository';
+import IGraduationCommissionRepository from '../../modules/graduation-commission/repositories/IGraduationCommissionRepository';
+
+
+
+
+container.registerSingleton<IGraduationCommissionRepository>(
+  'GraduationCommissionRepository',
+  GraduationCommissionRepository,
+);
 
 container.registerSingleton<IOrderTrackingRepository>(
   'OrderTrackingRepository',

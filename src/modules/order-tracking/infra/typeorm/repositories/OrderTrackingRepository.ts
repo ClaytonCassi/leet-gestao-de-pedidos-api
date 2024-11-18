@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 
 import OrderTracking from '../entities/OrderTracking';
 import dataSource from '../../../../../shared/infra/typeorm/data-source';
@@ -12,9 +12,7 @@ class OrderTrackingRepository implements IOrderTrackingRepository {
   constructor() {
     this.ormRepository = dataSource.getRepository(OrderTracking);
   }
-  save(orderTracking: OrderTracking): Promise<OrderTracking> {
-    throw new Error('Method not implemented.');
-  }
+ 
 
   public async create(data: ICreateOrderTrackingDTO): Promise<OrderTracking> {
     const orderTracking = this.ormRepository.create(data);
@@ -22,20 +20,34 @@ class OrderTrackingRepository implements IOrderTrackingRepository {
     return orderTracking;
   }
 
-  public async findAllByDateRange(startDate?: Date, endDate?: Date): Promise<OrderTracking[]> {
-    const query = this.ormRepository.createQueryBuilder('orderTracking');
+  public async findAllByDateRange(
+    startDate?: Date,
+    endDate?: Date,
+    vendedor?: string,
+    designer?: string
+  ): Promise<OrderTracking[]> {
+    const query = this.ormRepository.createQueryBuilder('order_tracking');
 
     if (startDate) {
-        query.andWhere('orderTracking.dataEnvio >= :startDate', { startDate });
+      query.andWhere('order_tracking.dataEnvio >= :startDate', { startDate });
     }
 
     if (endDate) {
-  
-        query.andWhere('orderTracking.dataEnvio <= :endDate', { endDate });
+      query.andWhere('order_tracking.dataEnvio <= :endDate', { endDate });
     }
 
-    return await query.getMany();
-}
+    if (vendedor) {
+      query.andWhere('order_tracking.nomeVendedor = :vendedor', { vendedor });
+    }
+
+    if (designer) {
+      query.andWhere('order_tracking.nomeFuncionarioArte = :designer', { designer });
+    }
+
+    return query.getMany();
+  }
+
+
 
   public async findAll(): Promise<OrderTracking[]> {
     return this.ormRepository.find();

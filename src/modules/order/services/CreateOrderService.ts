@@ -5,6 +5,7 @@ import OrderProduct from '../../../modules/order/infra/typeorm/entities/OrderPro
 import OrderProductAdditional from '../../../modules/product/infra/typeorm/entities/OrderProductAdditional';
 import ICreateOrderDTO from '../../../modules/order/dtos/ICreateOrderDTO';
 import IStorageProvider from '../../../shared/container/providers/StorageProvider/models/IStorageProvider';
+import { v4 as uuidv4 } from 'uuid';
 
 import fs from 'fs';
 import path from 'path';
@@ -45,6 +46,10 @@ class CreateOrderService {
     formaPagamento,
     nomeVendedor,
     nomeDesigner,
+    comissaoFormaturaId,
+    tipoDesconto,
+    padraoDesconto, 
+
   }: ICreateOrderDTO, user_name: string): Promise<Order> {
     const lastOrder = await this.ordersRepository.findLastOrder();
     let numeroPedido = '000001';
@@ -98,6 +103,9 @@ class CreateOrderService {
     order.numeroPedido = numeroPedido; 
     order.nomeVendedor = nomeVendedor || ''; 
     order.nomeDesigner = nomeDesigner || '';
+    order.padraoDesconto = padraoDesconto || '';
+    order.tipoDesconto = tipoDesconto || null;
+    order.comissaoFormaturaId = comissaoFormaturaId || undefined;
 
     await this.ordersRepository.save(order);
 
@@ -116,18 +124,34 @@ class CreateOrderService {
   public async uploadImage(file: Express.Multer.File): Promise<string> {
     const date = new Date();
     const formattedDate = format(date, 'dd-MM-yyyy');
-    const originalName = path.parse(file.originalname).name;
+    const originalName = path.parse(file.originalname).name.replace(/\s+/g, '');
     const fileExtension = path.extname(file.originalname);
-    const newFileName = `leet-${formattedDate}-${originalName}${fileExtension}`;
-
+  
+    const uniqueId = uuidv4();
+    const newFileName = `leet-${formattedDate}-${originalName}-${uniqueId}${fileExtension}`;
+  
     const filePath = path.resolve(uploadConfig.tmpFolder, newFileName);
-    
-    await fs.promises.writeFile(filePath, file.buffer);
-    const fileUrl = await this.storageProvider.saveFile(newFileName);
-    await fs.promises.unlink(filePath);
-
-    return fileUrl;
-  }
+  
+    try {
+      // Escreve o arquivo temporário
+      await fs.promises.writeFile(filePath, file.buffer);
+  
+      // Salva o arquivo no provedor de armazenamento
+      const fileUrl = await this.storageProvider.saveFile(newFileName);
+  
+      // Verifica se o arquivo existe antes de excluí-lo
+      if (fs.existsSync(filePath)) {
+        await fs.promises.unlink(filePath);
+      } else {
+        console.warn(`Arquivo temporário não encontrado para exclusão: ${filePath}`);
+      }
+  
+      return fileUrl;
+    } catch (error) {
+      console.error('Erro durante o upload da imagem:', error);
+      throw new Error('Erro ao processar a imagem. Tente novamente.');
+    }
+  } 
 }
 
 export default CreateOrderService;

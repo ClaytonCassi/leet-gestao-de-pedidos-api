@@ -56,6 +56,9 @@ class OrdersController {
       formaPagamento,
       nomeVendedor,
       nomeDesigner, 
+      comissaoFormaturaId,
+      tipoDesconto, 
+      padraoDesconto,
     } = request.body;
 
     const userName = (request.headers['x-user-name'] as string) || '';
@@ -114,6 +117,10 @@ class OrdersController {
       imagem: imagemPedidoUrl,
       nomeVendedor,
       nomeDesigner,
+      comissaoFormaturaId: comissaoFormaturaId,
+      tipoDesconto: tipoDesconto,
+      padraoDesconto: padraoDesconto,
+
     };
 
     const order = await createOrder.execute(orderData, userName);
@@ -127,6 +134,14 @@ class OrdersController {
     const updateOrderService = container.resolve(UpdateOrderService);
   
     const { id } = request.params;
+
+    const {
+      comissaoFormaturaId,
+      tipoDesconto,
+      padraoDesconto,
+    } = request.body;
+
+
     let imagemPedidoUrl: string | null = null;
     if (request.file) {
       imagemPedidoUrl = await updateOrderService.uploadImage(request.file);
@@ -160,6 +175,9 @@ class OrdersController {
     const fieldsToUpdate = {
       ...request.body,
       produtos,
+      comissaoFormaturaId,
+      tipoDesconto,
+      padraoDesconto,
       formaPagamento: request.body.formaPagamento,
       numeroPedido: request.body.numeroPedido, 
       nomeVendedor: request.body.nomeVendedor, 

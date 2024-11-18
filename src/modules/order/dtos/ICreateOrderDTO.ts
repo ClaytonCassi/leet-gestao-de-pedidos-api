@@ -36,4 +36,7 @@ export default interface ICreateOrderDTO {
   nomeVendedor?: string | undefined;
   nomeDesigner?: string;
   pagamentoVerificado?: 'não confirmado' | 'confirmado 50%' | 'confirmado 100%' | null;
+  comissaoFormaturaId?: string; 
+  tipoDesconto?: 'CUPOM_FORMANDO_15' | 'CUPOM_COMISSAO_35' | null; 
+  padraoDesconto?: string; 
 }

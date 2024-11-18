@@ -8,6 +8,8 @@ import IOrderTrackingRepository from '../repositories/IOrderTrackingRepository';
 interface IRequest {
   startDate?: string;
   endDate?: string;
+  vendedor?: string;
+  designer?: string;
 }
 
 @injectable()
@@ -17,7 +19,7 @@ class ListOrderTrackingService {
     private orderTrackingRepository: IOrderTrackingRepository,
   ) {}
 
-  public async execute({ startDate, endDate }: IRequest): Promise<OrderTracking[]> {
+  public async execute({ startDate, endDate, vendedor, designer }: IRequest): Promise<OrderTracking[]> {
     const timeZone = 'UTC';
 
     const parsedStartDate = startDate 
@@ -28,7 +30,12 @@ class ListOrderTrackingService {
       ? endOfDay(toZonedTime(parseISO(endDate), timeZone)) 
       : undefined;
 
-    const orderTrackings = await this.orderTrackingRepository.findAllByDateRange(parsedStartDate, parsedEndDate);
+      const orderTrackings = await this.orderTrackingRepository.findAllByDateRange(
+        parsedStartDate, 
+        parsedEndDate, 
+        vendedor, 
+        designer
+      );
     return orderTrackings;
   }
 }

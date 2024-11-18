@@ -46,16 +46,19 @@ class OrderTrackingController {
   }
   
   public async list(request: Request, response: Response): Promise<Response> {
-    const { startDate, endDate } = request.query;
+    const { startDate, endDate, vendedor, designer } = request.query;
     const listOrderTracking = container.resolve(ListOrderTrackingService);
 
     const orderTrackings = await listOrderTracking.execute({
         startDate: startDate as string,
         endDate: endDate as string,
+        vendedor: vendedor as string,
+        designer: designer as string,
     });
 
     return response.json(orderTrackings);
 }
+
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
