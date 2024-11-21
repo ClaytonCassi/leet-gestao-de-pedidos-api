@@ -29,6 +29,9 @@ class CreateGraduationCommissionService {
     documentoAssinaturaFile?: Express.Multer.File
   ): Promise<GraduationCommission> {
     if (documentoAssinaturaFile) {
+      if (!this.storageProvider.savePDF) {
+        throw new Error('savePDF method is not implemented in storageProvider.');
+      }
       data.documentoAssinaturaUrl = await this.storageProvider.savePDF(documentoAssinaturaFile);
     }
   

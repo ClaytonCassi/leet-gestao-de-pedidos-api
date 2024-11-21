@@ -16,6 +16,9 @@ graduationCommissionRouter.post('/', upload.single('documentoAssinatura'), gradu
 // Rota para listagem de todas as comissões de formatura
 graduationCommissionRouter.get('/', graduationCommissionController.list);
 
+// Rota para buscar uma comissão de formatura pelo ID
+graduationCommissionRouter.get('/:id', graduationCommissionController.findById);
+
 // Rota para atualização de uma comissão de formatura específica pelo ID
 graduationCommissionRouter.patch('/:id', upload.single('documentoAssinatura'), graduationCommissionController.update);
 

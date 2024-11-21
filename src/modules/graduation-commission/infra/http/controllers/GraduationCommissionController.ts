@@ -7,6 +7,7 @@ import UpdateGraduationCommissionService from '../../../services/UpdateGraduatio
 import DeleteGraduationCommissionService from '../../../services/DeleteGraduationCommissionService';
 import ListGraduationCommissionsService from '../../../services/ListGraduationCommissionsService';
 import ICreateGraduationCommissionDTO from '../../../dtos/ICreateGraduationCommissionDTO';
+import FindGraduationCommissionService from '../../../services/FindGraduationCommissionService';
 
 class GraduationCommissionController {
 
@@ -70,6 +71,19 @@ class GraduationCommissionController {
     return response.status(200).json(commission);
    
   }
+
+    // Método para buscar uma comissão pelo ID
+    public async findById(request: Request, response: Response): Promise<Response> {
+      const { id } = request.params; // Captura o ID da URL
+      const findCommission = container.resolve(FindGraduationCommissionService); // Resolve o serviço
+      const commission = await findCommission.execute(id); // Busca a comissão
+  
+      if (!commission) {
+        return response.status(404).json({ error: 'Comissão de formatura não encontrada.' });
+      }
+  
+      return response.json(commission); // Retorna os dados da comissão
+    }
 
   // Método para listar todas as comissões
   public async list(request: Request, response: Response): Promise<Response> {
