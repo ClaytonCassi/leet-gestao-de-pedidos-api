@@ -44,12 +44,20 @@ import GraduationCommissionRepository from '../../modules/graduation-commission/
 import IGraduationCommissionRepository from '../../modules/graduation-commission/repositories/IGraduationCommissionRepository';
 
 
+import IndicatorsRepository from '../../modules/indicators/infra/typeorm/repositories/IndicatorsRepository';
+import IIndicatorsRepository from '../../modules/indicators/repositories/IIndicatorsRepository';
+
+container.registerSingleton<IIndicatorsRepository>(
+  'IndicatorsRepository',
+  IndicatorsRepository,
+);
 
 
 container.registerSingleton<IGraduationCommissionRepository>(
   'GraduationCommissionRepository',
   GraduationCommissionRepository,
 );
+
 
 container.registerSingleton<IOrderTrackingRepository>(
   'OrderTrackingRepository',
