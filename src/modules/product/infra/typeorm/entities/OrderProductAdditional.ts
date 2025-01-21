@@ -20,6 +20,9 @@ import {
   
     @Column()
     adicionalId: string;
+
+    @Column('decimal', { precision: 10, scale: 2, nullable: true })
+    valor: number | null;
   
    // OrderProductAdditional
     @ManyToOne(() => OrderProduct, orderProduct => orderProduct.adicionais, { onDelete: 'CASCADE' })

@@ -60,3 +60,4 @@ class ResetPasswordService {
 }
 
 export default ResetPasswordService;
+7

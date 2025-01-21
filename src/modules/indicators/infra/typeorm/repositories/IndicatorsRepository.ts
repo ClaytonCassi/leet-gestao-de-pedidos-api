@@ -2,6 +2,8 @@ import { Between, Repository } from 'typeorm';
 import Order from '../../../../../modules/order/infra/typeorm/entities/Order';
 import dataSource from '../../../../../shared/infra/typeorm/data-source';
 import IIndicatorsRepository from '../../../../../modules/indicators/repositories/IIndicatorsRepository';
+import { IAdditionalIndicators } from '../../../../../modules/indicators/repositories/IAdditionalIndicators';
+import { IProductIndicators } from '../../../../../modules/indicators/repositories/IProductIndicators';
 
 
 class IndicatorsRepository implements IIndicatorsRepository {
@@ -134,6 +136,159 @@ class IndicatorsRepository implements IIndicatorsRepository {
       .groupBy('order.nomeVendedor')
       .getRawMany();
   }
+
+  public async getProductIndicators(
+    startDate: Date,
+    endDate: Date,
+    productId?: string,
+  ): Promise<IProductIndicators> {
+    const query = this.ormRepository
+      .createQueryBuilder('order')
+      .leftJoin('order.produtos', 'produtos') // 'produtos' é o alias correto para a relação com `order_products`
+      .where('order.dataPedido BETWEEN :startDate AND :endDate', { startDate, endDate });
+  
+    if (productId) {
+      query.andWhere('produtos.productId = :productId', { productId }); // 'produtos' deve ser usado
+    }
+  
+    const totalProductsSoldRaw = await query
+      .select('SUM(produtos.quantidade)', 'total') // Substitua 'orderProduct' por 'produtos'
+      .getRawOne();
+  
+    const totalProductsSold = Number(totalProductsSoldRaw?.total) || 0;
+  
+    const topProductsByQuantityRaw = await query
+    .select([
+      'produtos.productId AS "productId"', // Alias entre aspas para garantir consistência
+      'produtos.nome AS "productName"',
+      'SUM(produtos.quantidade) AS "totalQuantity"',
+    ])
+    .groupBy('produtos.productId')
+    .addGroupBy('produtos.nome')
+    .orderBy('SUM(produtos.quantidade)', 'DESC')
+    .limit(10)
+    .getRawMany();
+  
+    const topProductsByQuantity = topProductsByQuantityRaw.map(item => ({
+      productId: item.productId,
+      productName: item.productName,
+      totalQuantity: Number(item.totalQuantity),
+    }));
+  
+    const topProductsByRevenueRaw = await query
+      .select([
+        'produtos.productId AS "productId"', // Substitua 'orderProduct' por 'produtos'
+        'produtos.nome AS "productName"',
+        'SUM(produtos.quantidade * produtos.valorUnitario) AS "totalRevenue"',
+      ])
+      .groupBy('produtos.productId')
+      .addGroupBy('produtos.nome')
+      .orderBy('SUM(produtos.quantidade * produtos.valorUnitario)', 'DESC')
+      .limit(10)
+      .getRawMany();
+  
+    const topProductsByRevenue = topProductsByRevenueRaw.map(item => ({
+      productId: item.productId,
+      productName: item.productName,
+      totalRevenue: Number(item.totalRevenue),
+    }));
+  
+    const totalRevenueFromProductsRaw = await query
+      .select('SUM(produtos.quantidade * produtos.valorUnitario)', 'totalRevenue') // Substitua 'orderProduct' por 'produtos'
+      .getRawOne();
+  
+    const totalRevenueFromProducts = Number(totalRevenueFromProductsRaw?.totalRevenue) || 0;
+  
+    const totalOrders = await this.countTotalOrders(startDate, endDate);
+    const averageProductsPerOrder =
+      totalOrders > 0 ? totalProductsSold / totalOrders : 0;
+  
+    return {
+      totalProductsSold,
+      topProductsByQuantity,
+      topProductsByRevenue,
+      totalRevenueFromProducts,
+      averageProductsPerOrder,
+    };
+  }
+  
+
+  // ----------------------------------------------------------------
+  // 2. Indicadores de ADICIONAIS
+  // ----------------------------------------------------------------
+  public async getAdditionalIndicators(
+    startDate: Date,
+    endDate: Date,
+    additionalId?: string,
+  ): Promise<IAdditionalIndicators> {
+    const query = this.ormRepository
+      .createQueryBuilder('order')
+      .leftJoin('order.produtos', 'produtos') // Alias correto
+      .leftJoin('produtos.adicionais', 'adicionais') // Alias correto para 'additionals'
+      .where('order.dataPedido BETWEEN :startDate AND :endDate', { startDate, endDate });
+  
+    if (additionalId) {
+      query.andWhere('adicionais.adicionalId = :additionalId', { additionalId }); // 'adicionais' é o alias correto
+    }
+  
+    const totalAdditionalsSoldRaw = await query
+      .select('COUNT(adicionais.id)', 'total') // Substitua 'additionals' por 'adicionais'
+      .getRawOne();
+  
+    const totalAdditionalsSold = Number(totalAdditionalsSoldRaw?.total) || 0;
+  
+    const topAdditionalsByUsageRaw = await query
+      .select([
+        'adicionais.adicionalId AS additionalId',
+        'adicionais.nome AS additionalName',
+        'COUNT(adicionais.id) AS usageCount',
+      ])
+      .groupBy('adicionais.adicionalId')
+      .addGroupBy('adicionais.nome')
+      .orderBy('COUNT(adicionais.id)', 'DESC')
+      .limit(5)
+      .getRawMany();
+  
+    const topAdditionalsByUsage = topAdditionalsByUsageRaw.map(item => ({
+      additionalId: item.additionalId,
+      additionalName: item.additionalName,
+      usageCount: Number(item.usageCount),
+    }));
+  
+    const topAdditionalsByRevenueRaw = await query
+      .leftJoin('additional_prices', 'ap', 'ap.additional_id = adicionais.adicionalId') // Substitua 'additionals' por 'adicionais'
+      .andWhere('ap.quantidade_min <= produtos.quantidade')
+      .andWhere('ap.quantidade_max IS NULL OR ap.quantidade_max >= produtos.quantidade')
+      .select([
+        'adicionais.adicionalId AS additionalId',
+        'adicionais.nome AS additionalName',
+        'SUM(ap.preco * produtos.quantidade) AS totalRevenue',
+      ])
+      .groupBy('adicionais.adicionalId')
+      .addGroupBy('adicionais.nome')
+      .orderBy('SUM(ap.preco * produtos.quantidade)', 'DESC')
+      .limit(5)
+      .getRawMany();
+  
+    const topAdditionalsByRevenue = topAdditionalsByRevenueRaw.map(item => ({
+      additionalId: item.additionalId,
+      additionalName: item.additionalName,
+      totalRevenue: Number(item.totalRevenue),
+    }));
+  
+    const totalOrders = await this.countTotalOrders(startDate, endDate);
+    const averageAdditionalsPerOrder =
+      totalOrders > 0 ? totalAdditionalsSold / totalOrders : 0;
+  
+    return {
+      totalAdditionalsSold,
+      topAdditionalsByUsage,
+      topAdditionalsByRevenue,
+      averageAdditionalsPerOrder,
+    };
+  }
+  
+  
 
   public async calculateMonthlySalesForLastYear(): Promise<{ month: string; salesCount: number }[]> {
     const oneYearAgo = new Date();

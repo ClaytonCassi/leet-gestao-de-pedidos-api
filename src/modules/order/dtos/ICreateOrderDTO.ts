@@ -12,6 +12,7 @@ export interface IAdicionalDTO {
   id?: string;
   adicionalId: string;
   orderProductId?: string;
+  valor?: number | null;
 }
 
 export default interface ICreateOrderDTO {

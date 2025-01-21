@@ -1,3 +1,6 @@
+import { IAdditionalIndicators } from "./IAdditionalIndicators";
+import { IProductIndicators } from "./IProductIndicators";
+
 interface IIndicatorsRepository {
   countTotalOrders(startDate: Date, endDate: Date): Promise<number>;
   calculateTotalRevenue(startDate: Date, endDate: Date): Promise<number>;
@@ -18,6 +21,10 @@ interface IIndicatorsRepository {
   calculateRevenueByMonth(startDate: Date, endDate: Date): Promise<{ month: string; revenue: number }[]>
   countOrdersBySeller(startDate: Date, endDate: Date): Promise<{ seller: string; orderCount: number }[]>
   countOrdersByDesigner(startDate: Date, endDate: Date): Promise<{ designer: string; orderCount: number }[]>;
+  getProductIndicators(startDate: Date, endDate: Date, productId?: string): Promise<IProductIndicators>;
+  getAdditionalIndicators(startDate: Date, endDate: Date, additionalId?: string): Promise<IAdditionalIndicators>;
+
+  
 
 }
 

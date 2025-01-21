@@ -18,6 +18,7 @@ type Adicionais = {
   id?: string;
   adicionalId: string;
   orderProductId?: string;
+  valor?: number; 
 }
 
 type Produto = {
@@ -135,11 +136,17 @@ class OrdersController {
   
     const { id } = request.params;
 
+
+    let  { comissaoFormaturaId } = request.body;
+    
     const {
-      comissaoFormaturaId,
       tipoDesconto,
       padraoDesconto,
     } = request.body;
+
+    if (comissaoFormaturaId === '') {
+      comissaoFormaturaId = null;
+    }
 
 
     let imagemPedidoUrl: string | null = null;

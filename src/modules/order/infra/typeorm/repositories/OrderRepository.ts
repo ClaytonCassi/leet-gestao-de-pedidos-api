@@ -1,28 +1,56 @@
-import { Between, EntityManager, getRepository, Repository } from 'typeorm';
+import { Between, EntityManager, Repository } from 'typeorm';
 import Order from '../../../../../modules/order/infra/typeorm/entities/Order';
 import IOrderRepository from '../../../../../modules/order/repositories/IOrderRepository';
 import ICreateOrderDTO from '../../../../../modules/order/dtos/ICreateOrderDTO';
 import dataSource from '../../../../../shared/infra/typeorm/data-source';
+import AdditionalPrice from '../../../../../modules/additional-prices/infra/typeorm/entities/AdditionalPrice';
 
 
 
 class OrderRepository implements IOrderRepository {
   private ormRepository: Repository<Order>;
+  private additionalPriceRepository: Repository<AdditionalPrice>; // Repositório de preços adicionais
 
   constructor() {
     this.ormRepository = dataSource.getRepository(Order);
+    this.additionalPriceRepository = dataSource.getRepository(AdditionalPrice);
   }
 
-  public async create(data: ICreateOrderDTO): Promise<Order> {
-    const orderData = {
-      ...data,
-      imagem: data.imagem ?? undefined,
-    };
-  
-    const order = this.ormRepository.create(orderData);
-    await this.ormRepository.save(order);
-    return order;
+ public async create(data: ICreateOrderDTO): Promise<Order> {
+  const orderData = {
+    ...data,
+    imagem: data.imagem ?? undefined,
+  };
+
+
+
+  // Para cada produto na ordem, calcule os valores dos adicionais
+  for (const product of orderData.produtos) {
+    if (product.adicionais && product.adicionais.length > 0) {
+      for (const adicional of product.adicionais) {
+        const priceRange = await this.additionalPriceRepository
+          .createQueryBuilder('ap')
+          .where('ap.additional_id = :adicionalId', { adicionalId: adicional.adicionalId })
+          .andWhere('ap.quantidade_min <= :quantidade', { quantidade: product.quantidade })
+          .andWhere('ap.quantidade_max IS NULL OR ap.quantidade_max >= :quantidade', {
+            quantidade: product.quantidade,
+          })
+          .getOne();
+
+        if (!priceRange) {
+          throw new Error(`Nenhum preço encontrado para o adicional ${adicional.adicionalId}.`);
+        }
+
+        // Calcular e atribuir o valor ao adicional
+        adicional.valor = priceRange.preco * product.quantidade;
+      }
+    }
   }
+
+  const order = this.ormRepository.create(orderData);
+  await this.ormRepository.save(order);
+  return order;
+}
 
   public async findLastOrder(): Promise<Order | undefined> {
     const order = await this.ormRepository
