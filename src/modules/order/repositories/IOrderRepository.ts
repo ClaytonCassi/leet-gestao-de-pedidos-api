@@ -14,4 +14,7 @@ export default interface IOrderRepository {
   findLastOrder(): Promise<Order | undefined>;
   findByNumeroPedido(numeroPedido: string): Promise<Order | undefined>;
   findByCelular(celular: string): Promise<Order[]>;
+  findAllInEventDateRange(startDate: Date, endDate: Date): Promise<Order[]>;
+  findByQrCode(qrcode: string): Promise<Order | undefined | null>;
+  updateOrder(order: Order): Promise<Order>;
 }

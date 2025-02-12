@@ -49,7 +49,13 @@ class OrderRepository implements IOrderRepository {
 
   const order = this.ormRepository.create(orderData);
   await this.ormRepository.save(order);
+
+  // Agora que o order.id foi gerado, atribuímos ele ao campo qrcode
+  order.qrcode = order.id;
+  await this.ormRepository.save(order);
+  
   return order;
+ 
 }
 
   public async findLastOrder(): Promise<Order | undefined> {
@@ -136,6 +142,27 @@ class OrderRepository implements IOrderRepository {
     const orders = await this.ormRepository.find({
       where: {
         dataPedido: Between(startDate, endDate),
+      },
+      relations: ['produtos'],
+    });
+    return orders;
+  }
+
+  async findByQrCode(qrcode: string): Promise<Order | undefined | null> {
+    return this.ormRepository.findOne({
+      where: { qrcode },
+      relations: ['produtos'],
+    });
+  }
+  
+  async updateOrder(order: Order): Promise<Order> {
+    return this.ormRepository.save(order);
+  }
+
+  public async findAllInEventDateRange(startDate: Date, endDate: Date): Promise<Order[]> {
+    const orders = await this.ormRepository.find({
+      where: {
+        dataEvento: Between(startDate, endDate),
       },
       relations: ['produtos'],
     });

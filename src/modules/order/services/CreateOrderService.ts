@@ -106,7 +106,15 @@ class CreateOrderService {
     order.padraoDesconto = padraoDesconto || '';
     order.tipoDesconto = tipoDesconto || null;
     order.comissaoFormaturaId = comissaoFormaturaId || undefined;
+  
 
+     
+    await this.ordersRepository.save(order);
+
+       
+    order.qrcode = order.id;
+    
+       
     await this.ordersRepository.save(order);
 
 

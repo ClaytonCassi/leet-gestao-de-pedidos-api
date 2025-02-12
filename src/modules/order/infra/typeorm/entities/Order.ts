@@ -99,6 +99,16 @@ class Order {
   @Column({ type: 'varchar', nullable: true, name: 'padrao_desconto' }) 
   padraoDesconto: string;
 
+    // New fields
+  @Column({ type: 'varchar', nullable: true })
+  status?: string;
+  
+  @Column({ type: 'varchar', nullable: true })
+  setor?: string;
+  
+  @Column({ type: 'varchar', nullable: true })
+  qrcode?: string;
+
   @CreateDateColumn()
   created_at: Date;
 

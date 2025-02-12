@@ -4,12 +4,14 @@ import multer from 'multer';
 import CreateOrderService from '../../../../../modules/order/services/CreateOrderService';
 import ListOrdersService from '../../../../../modules/order/services/ListOrdersByDateRangeService';
 import UpdateOrderService from '../../../../../modules/order/services/UpdateOrderService';
+import ListOrdersByEventDateRangeService from '../../../services/ListOrdersByEventDateRangeService';
 import DeleteOrderService from '../../../../../modules/order/services/DeleteOrderService';
 import ShowOrderService from '../../../../../modules/order/services/ShowOrderService';
 import ICreateOrderDTO, { IOrderProductDTO } from '../../../../../modules/order/dtos/ICreateOrderDTO';
 import ShowOrderByNumeroService from '../../../../../modules/order/services/ShowOrderByNumeroService';
 import UpdatePagamentoVerificadoService from '../../../../../modules/order/services/UpdatePagamentoVerificadoService';
 import ShowOrderByCelularService from '../../../../../modules/order/services/ShowOrderByCelularService';
+import UpdateOrderStatusService from '../../../../../modules/order/services/UpdateOrderStatusService';
 
 // Configuração do Multer para armazenar arquivos em memória
 const upload = multer({ storage: multer.memoryStorage() });
@@ -18,7 +20,6 @@ type Adicionais = {
   id?: string;
   adicionalId: string;
   orderProductId?: string;
-  valor?: number; 
 }
 
 type Produto = {
@@ -57,9 +58,6 @@ class OrdersController {
       formaPagamento,
       nomeVendedor,
       nomeDesigner, 
-      comissaoFormaturaId,
-      tipoDesconto, 
-      padraoDesconto,
     } = request.body;
 
     const userName = (request.headers['x-user-name'] as string) || '';
@@ -118,10 +116,6 @@ class OrdersController {
       imagem: imagemPedidoUrl,
       nomeVendedor,
       nomeDesigner,
-      comissaoFormaturaId: comissaoFormaturaId,
-      tipoDesconto: tipoDesconto,
-      padraoDesconto: padraoDesconto,
-
     };
 
     const order = await createOrder.execute(orderData, userName);
@@ -135,20 +129,6 @@ class OrdersController {
     const updateOrderService = container.resolve(UpdateOrderService);
   
     const { id } = request.params;
-
-
-    let  { comissaoFormaturaId } = request.body;
-    
-    const {
-      tipoDesconto,
-      padraoDesconto,
-    } = request.body;
-
-    if (comissaoFormaturaId === '') {
-      comissaoFormaturaId = null;
-    }
-
-
     let imagemPedidoUrl: string | null = null;
     if (request.file) {
       imagemPedidoUrl = await updateOrderService.uploadImage(request.file);
@@ -182,9 +162,6 @@ class OrdersController {
     const fieldsToUpdate = {
       ...request.body,
       produtos,
-      comissaoFormaturaId,
-      tipoDesconto,
-      padraoDesconto,
       formaPagamento: request.body.formaPagamento,
       numeroPedido: request.body.numeroPedido, 
       nomeVendedor: request.body.nomeVendedor, 
@@ -203,6 +180,23 @@ class OrdersController {
     } catch (error) {
       return response.status(404).json({ message: 'Pedido não encontrado.' });
     }
+  }
+
+  public async updateStatus(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { qrcode, status, setor } = request.body;
+    const user_name = request.user.name; // Supondo autenticação
+
+    const updateOrderStatus = container.resolve(UpdateOrderStatusService);
+
+    const order = await updateOrderStatus.execute(
+      { qrcode, status, setor },
+      user_name
+    );
+
+    return response.json(order);
   }
   
   public async delete(request: Request, response: Response): Promise<Response> {
@@ -288,6 +282,19 @@ class OrdersController {
   
     return response.json(orders);
   }
+
+  public async listByEventDateRange(request: Request, response: Response): Promise<Response> {
+    const { startDate, endDate } = request.query;
+
+    const listOrders = container.resolve(ListOrdersByEventDateRangeService);
+    const orders = await listOrders.execute({
+      startDate: new Date(String(startDate)),
+      endDate: new Date(String(endDate)),
+    });
+
+    return response.json(orders);
+  }
+
 
   public async updatePagamentoVerificado(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
